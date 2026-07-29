@@ -1,0 +1,1356 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "about.contact" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Contact" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Contact" } }
+      }
+    },
+    "about.copyright" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "© 2026 Pacific Knowledge. All rights reserved." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "© 2026 Pacific Knowledge. Tous droits réservés." } }
+      }
+    },
+    "about.developedBy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Developed by Pacific Knowledge" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Développé par Pacific Knowledge" } }
+      }
+    },
+    "about.feature.conversion" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Smart conversions" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conversions intelligentes" } }
+      }
+    },
+    "about.feature.pdf" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Precise PDF tools" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Outils PDF précis" } }
+      }
+    },
+    "about.feature.privacy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "100% local and private" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "100 % local et privé" } }
+      }
+    },
+    "about.github" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "GitHub" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "GitHub" } }
+      }
+    },
+    "about.replayOnboarding" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Replay onboarding" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Revoir l’onboarding" } }
+      }
+    },
+    "about.versionBuild" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Version %@ (%@)" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Version %@ (%@)" } }
+      }
+    },
+    "about.website" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Website" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Site web" } }
+      }
+    },
+    "brand.tagline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your files, transformed." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vos fichiers, transformés." } }
+      }
+    },
+    "command.conversion" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Conversion" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conversion" } }
+      }
+    },
+    "command.import" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Import Files…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Importer des fichiers…" } }
+      }
+    },
+    "command.startConversion" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start Conversion" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lancer la conversion" } }
+      }
+    },
+    "common.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajouter" } }
+      }
+    },
+    "common.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Annuler" } }
+      }
+    },
+    "common.close" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Close" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fermer" } }
+      }
+    },
+    "common.continue" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Continue" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Continuer" } }
+      }
+    },
+    "common.delete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer" } }
+      }
+    },
+    "common.next" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Suivant" } }
+      }
+    },
+    "common.previous" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Previous" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Précédent" } }
+      }
+    },
+    "common.retry" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Try Again" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Réessayer" } }
+      }
+    },
+    "common.showInFinder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Show in Finder" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Afficher dans le Finder" } }
+      }
+    },
+    "common.skip" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ignorer" } }
+      }
+    },
+    "common.understood" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Got It" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Compris" } }
+      }
+    },
+    "conversion.accessibility.format" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Convert to %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Convertir en %@" } }
+      }
+    },
+    "conversion.accessibility.removeFile" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Retirer %@" } }
+      }
+    },
+    "conversion.addHelp" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add files (⌘O)" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajouter des fichiers (⌘O)" } }
+      }
+    },
+    "conversion.analyzing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Analyzing new files…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Analyse des nouveaux fichiers…" } }
+      }
+    },
+    "conversion.background.help" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Smart analysis runs on this Mac." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Analyse intelligente sur ce Mac." } }
+      }
+    },
+    "conversion.background.remove" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove background" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Retirer l’arrière-plan" } }
+      }
+    },
+    "conversion.destination" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Destination" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Destination" } }
+      }
+    },
+    "conversion.destination.change" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Change destination folder" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Changer le dossier de destination" } }
+      }
+    },
+    "conversion.destination.choose" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Choisir" } }
+      }
+    },
+    "conversion.destination.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose Destination Folder" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Choisir le dossier de destination" } }
+      }
+    },
+    "conversion.drop.addMore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Drop more files here" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Déposez d’autres fichiers ici" } }
+      }
+    },
+    "conversion.drop.choose" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose Files" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Choisir des fichiers" } }
+      }
+    },
+    "conversion.drop.detection" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Automatic detection" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Détection automatique" } }
+      }
+    },
+    "conversion.drop.private" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Private processing" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Traitement privé" } }
+      }
+    },
+    "conversion.drop.release" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Release to Import" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Relâchez pour importer" } }
+      }
+    },
+    "conversion.drop.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Images, PDFs, documents, audio or video" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Images, PDF, documents, audio ou vidéo" } }
+      }
+    },
+    "conversion.drop.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Drop Your Files Here" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Déposez vos fichiers ici" } }
+      }
+    },
+    "conversion.drop.zone" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "File import area" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Zone d’import de fichiers" } }
+      }
+    },
+    "conversion.dpi" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d dpi" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d ppp" } }
+      }
+    },
+    "conversion.eyebrow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "SMART CONVERSION" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "CONVERSION INTELLIGENTE" } }
+      }
+    },
+    "conversion.failure.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Conversion Failed" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La conversion a échoué" } }
+      }
+    },
+    "conversion.files" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Files" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fichiers" } }
+      }
+    },
+    "conversion.items.one" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d item" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d élément" } }
+      }
+    },
+    "conversion.items.other" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d items" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d éléments" } }
+      }
+    },
+    "conversion.metadata.pages.one" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d page" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d page" } }
+      }
+    },
+    "conversion.metadata.pages.other" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d pages" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d pages" } }
+      }
+    },
+    "conversion.noCommonFormat" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No common format for this batch." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucun format commun pour ce lot." } }
+      }
+    },
+    "conversion.outputFormat" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Output Format" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Format de sortie" } }
+      }
+    },
+    "conversion.pdfResolution" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "PDF Resolution" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Résolution PDF" } }
+      }
+    },
+    "conversion.preserveMetadata" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Preserve Metadata" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conserver les métadonnées" } }
+      }
+    },
+    "conversion.privacy.accessibility" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Processing is entirely local" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Traitement entièrement local" } }
+      }
+    },
+    "conversion.privacy.badge" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "100% local" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "100 % local" } }
+      }
+    },
+    "conversion.progress.preparing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Preparing…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Préparation…" } }
+      }
+    },
+    "conversion.progress.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Converting" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conversion en cours" } }
+      }
+    },
+    "conversion.ready.one" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d file ready" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d fichier prêt" } }
+      }
+    },
+    "conversion.ready.other" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d files ready" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d fichiers prêts" } }
+      }
+    },
+    "conversion.quality" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quality" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Qualité" } }
+      }
+    },
+    "conversion.removeAll" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove All" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Tout retirer" } }
+      }
+    },
+    "conversion.removeAllHelp" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove all files" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Retirer tous les fichiers" } }
+      }
+    },
+    "conversion.settings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Réglages" } }
+      }
+    },
+    "conversion.size" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Size" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Taille" } }
+      }
+    },
+    "conversion.start" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Convert Now" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Convertir maintenant" } }
+      }
+    },
+    "conversion.startHint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Starts conversion to the selected format" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lance la conversion vers le format sélectionné" } }
+      }
+    },
+    "conversion.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Huri detects your files and only offers compatible formats." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Huri détecte vos fichiers et ne propose que les formats compatibles." } }
+      }
+    },
+    "conversion.success.detail.one" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d file created in %@ s" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d fichier créé en %@ s" } }
+      }
+    },
+    "conversion.success.detail.other" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d files created in %@ s" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d fichiers créés en %@ s" } }
+      }
+    },
+    "conversion.success.count.one" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d file is ready." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d fichier est prêt." } }
+      }
+    },
+    "conversion.success.count.other" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d files are ready." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d fichiers sont prêts." } }
+      }
+    },
+    "conversion.success.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Conversion Complete" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conversion terminée" } }
+      }
+    },
+    "conversion.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Transform Without Compromise" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Transformez sans compromis" } }
+      }
+    },
+    "conversion.panel.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose Files to Convert" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Choisir les fichiers à convertir" } }
+      }
+    },
+    "error.conversion.cancelled" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The conversion was cancelled." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La conversion a été annulée." } }
+      }
+    },
+    "error.conversion.backgroundPNG" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Smart background removal is available for PNG output." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le détourage intelligent est disponible pour les sorties PNG." } }
+      }
+    },
+    "error.conversion.destination" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose a local destination folder." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Choisissez un dossier de destination local." } }
+      }
+    },
+    "error.conversion.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add at least one file to convert." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajoutez au moins un fichier à convertir." } }
+      }
+    },
+    "error.conversion.format" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose a valid output format." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Choisissez un format de sortie valide." } }
+      }
+    },
+    "error.conversion.typeUnknown" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The type of “%@” is not recognized." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le type de « %@ » n’est pas reconnu." } }
+      }
+    },
+    "error.conversion.unsupportedPair" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ → %@ conversion is unavailable." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La conversion %@ → %@ n’est pas disponible." } }
+      }
+    },
+    "error.file.open" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to open “%@”." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible d’ouvrir « %@ »." } }
+      }
+    },
+    "error.file.localOnly" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Huri can only inspect local files." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Huri ne peut inspecter que des fichiers locaux." } }
+      }
+    },
+    "error.file.unreadable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The file “%@” is missing or unreadable." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le fichier « %@ » est introuvable ou illisible." } }
+      }
+    },
+    "error.file.warningExtension" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The content is %@ despite the .%@ extension." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le contenu est du %@, malgré l’extension .%@." } }
+      }
+    },
+    "error.image.decode" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to decode the image “%@”." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de décoder l’image « %@ »." } }
+      }
+    },
+    "error.image.decodeWebP" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to decode the WebP image “%@”: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de décoder l’image WebP « %@ » : %@" } }
+      }
+    },
+    "error.image.encodeUnavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ encoding is unavailable on this Mac." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "L’encodage %@ n’est pas disponible sur ce Mac." } }
+      }
+    },
+    "error.image.finalize" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "ImageIO could not finalize “%@”." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "ImageIO n’a pas pu finaliser « %@ »." } }
+      }
+    },
+    "error.image.imageIOCreate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "ImageIO cannot create a %@ file on this Mac." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "ImageIO ne peut pas créer de fichier %@ sur ce Mac." } }
+      }
+    },
+    "error.image.notFormat" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ is not an image format." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%@ n’est pas un format d’image." } }
+      }
+    },
+    "error.image.outputUnsupported" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The image output format is unsupported." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Format de sortie image non pris en charge." } }
+      }
+    },
+    "error.image.prepareWebP" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to prepare the image for WebP." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de préparer l’image pour WebP." } }
+      }
+    },
+    "error.image.resize" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Image resizing failed." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le redimensionnement de l’image a échoué." } }
+      }
+    },
+    "error.image.resizeMemory" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not enough memory to resize the image." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Mémoire insuffisante pour redimensionner l’image." } }
+      }
+    },
+    "error.image.webpEncode" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "WebP encoding failed: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "L’encodage WebP a échoué : %@" } }
+      }
+    },
+    "error.media.buffer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to allocate the audio buffer." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible d’allouer le tampon audio." } }
+      }
+    },
+    "error.media.combination" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "AVFoundation does not support this media combination on this Mac." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Cette combinaison média n’est pas prise en charge par AVFoundation sur ce Mac." } }
+      }
+    },
+    "error.media.conversion" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Media conversion failed." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La conversion média a échoué." } }
+      }
+    },
+    "error.media.finalize" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to finalize “%@”: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de finaliser « %@ » : %@" } }
+      }
+    },
+    "error.media.formatUnavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The media format %@ is unavailable." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le format média %@ n’est pas disponible." } }
+      }
+    },
+    "error.media.pcm" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "PCM audio transcoding failed: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le transcodage audio PCM a échoué : %@" } }
+      }
+    },
+    "error.media.prepare" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "AVFoundation cannot prepare this media conversion." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "AVFoundation ne peut pas préparer cette conversion média." } }
+      }
+    },
+    "error.libreOffice.diagnostic" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "LibreOffice: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "LibreOffice : %@" } }
+      }
+    },
+    "error.libreOffice.exit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "LibreOffice exited with code %d." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "LibreOffice a quitté avec le code %d." } }
+      }
+    },
+    "error.libreOffice.missing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Word conversion requires LibreOffice. Install LibreOffice to enable this feature." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La conversion Word nécessite LibreOffice. Installez LibreOffice pour activer cette fonction." } }
+      }
+    },
+    "error.libreOffice.noOutput" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "LibreOffice produced no PDF for “%@”." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "LibreOffice n’a produit aucun PDF pour « %@ »." } }
+      }
+    },
+    "error.libreOffice.start" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "LibreOffice could not start: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "LibreOffice n’a pas pu démarrer : %@" } }
+      }
+    },
+    "progress.convertingFile" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Converting %@…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conversion de %@…" } }
+      }
+    },
+    "progress.fileComplete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ complete" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%@ terminé" } }
+      }
+    },
+    "warning.conversion.multiplePages" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "“%@” produced %d files, one per page." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "« %@ » a produit %d fichiers, un par page." } }
+      }
+    },
+    "error.background.detection" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Foreground detection failed: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La détection du premier plan a échoué : %@" } }
+      }
+    },
+    "error.background.filter" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The background removal filter is unavailable." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le filtre de détourage est indisponible." } }
+      }
+    },
+    "error.background.mask" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to generate the foreground mask: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de générer le masque de premier plan : %@" } }
+      }
+    },
+    "error.background.noForeground" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No clear foreground was detected in this image." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucun premier plan net n’a été détecté dans cette image." } }
+      }
+    },
+    "error.background.render" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rendering the cut-out image failed." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le rendu de l’image détourée a échoué." } }
+      }
+    },
+    "error.document.encoding" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The text encoding of “%@” is not recognized." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le codage texte de « %@ » n’est pas reconnu." } }
+      }
+    },
+    "error.document.layout" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Part of the document could not be laid out." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Une portion du document ne peut pas être mise en page." } }
+      }
+    },
+    "error.document.read" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to read “%@”: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de lire « %@ » : %@" } }
+      }
+    },
+    "error.document.rtfInvalid" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The RTF document is invalid: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le document RTF est invalide : %@" } }
+      }
+    },
+    "error.output.notImage" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The requested output is not an image." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La sortie demandée n’est pas une image." } }
+      }
+    },
+    "error.pdf.addImage" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to add “%@” to the PDF." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible d’ajouter « %@ » au PDF." } }
+      }
+    },
+    "error.pdf.context" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to create the PDF context." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de créer le flux PDF." } }
+      }
+    },
+    "error.pdf.createDocument" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to create the PDF document." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de créer le document PDF." } }
+      }
+    },
+    "error.pdf.exportEmpty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The exported PDF must contain at least one page." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le PDF exporté doit contenir au moins une page." } }
+      }
+    },
+    "error.pdf.generate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "PDFKit could not generate the document." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "PDFKit n’a pas pu générer le document." } }
+      }
+    },
+    "error.pdf.imagesEmpty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add at least one image to the PDF." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajoutez au moins une image au PDF." } }
+      }
+    },
+    "error.pdf.noPages" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This PDF contains no pages." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ce PDF ne contient aucune page." } }
+      }
+    },
+    "error.pdf.open" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to open the PDF “%@”." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible d’ouvrir le PDF « %@ »." } }
+      }
+    },
+    "error.pdf.pageMissing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Page %d no longer exists in “%@”." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La page %d n’existe plus dans « %@ »." } }
+      }
+    },
+    "error.pdf.rangeOutOfBounds" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Range %d–%d exceeds the PDF’s %d pages." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La plage %d–%d dépasse les %d pages du PDF." } }
+      }
+    },
+    "error.pdf.rangesEmpty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add at least one page range." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajoutez au moins une plage de pages." } }
+      }
+    },
+    "error.pdf.renderPage" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rendering page %d failed." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le rendu de la page %d a échoué." } }
+      }
+    },
+    "error.preview.create" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to create the PNG preview." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de créer l’aperçu PNG." } }
+      }
+    },
+    "error.preview.finalize" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to finalize the PNG preview." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de finaliser l’aperçu PNG." } }
+      }
+    },
+    "error.preview.quickLook" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quick Look cannot preview “%@”: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quick Look ne peut pas prévisualiser « %@ » : %@" } }
+      }
+    },
+    "error.write" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to write “%@”: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible d’écrire « %@ » : %@" } }
+      }
+    },
+    "file.family.document" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Document" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Document" } }
+      }
+    },
+    "file.family.image" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Image" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Image" } }
+      }
+    },
+    "file.family.text" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Text" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Texte" } }
+      }
+    },
+    "file.family.unsupported" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unsupported" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Non pris en charge" } }
+      }
+    },
+    "file.family.video" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Video" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vidéo" } }
+      }
+    },
+    "file.format.unknown" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unknown" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Inconnu" } }
+      }
+    },
+    "import.alert.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Some Files Were Not Imported" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Import incomplet" } }
+      }
+    },
+    "import.failure.header" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Some files could not be added:\n" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Certains fichiers n’ont pas pu être ajoutés :\n" } }
+      }
+    },
+    "nav.about" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "About" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "À propos" } }
+      }
+    },
+    "nav.convert" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Convert" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Convertir" } }
+      }
+    },
+    "nav.pdfTools" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "PDF Tools" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Outils PDF" } }
+      }
+    },
+    "onboarding.finish" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start with Huri" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Commencer avec Huri" } }
+      }
+    },
+    "onboarding.page.conversion.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Drop your files. Huri detects their content and only offers transformations that make sense." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Déposez vos fichiers. Huri détecte leur contenu et propose uniquement les transformations pertinentes." } }
+      }
+    },
+    "onboarding.page.conversion.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Transform Any File" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Transformez chaque fichier" } }
+      }
+    },
+    "onboarding.page.pdf.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Merge, reorder, rotate, extract and split PDF pages in one precise workspace." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fusionnez, réordonnez, pivotez, extrayez et découpez vos PDF dans un atelier précis." } }
+      }
+    },
+    "onboarding.page.pdf.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Shape Your PDFs" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Façonnez vos PDF" } }
+      }
+    },
+    "onboarding.page.privacy.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No account, no analytics, no upload. Your files stay on your Mac from start to finish." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Sans compte, sans télémétrie, sans envoi. Vos fichiers restent sur votre Mac du début à la fin." } }
+      }
+    },
+    "onboarding.page.privacy.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Private by Design" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Privé par conception" } }
+      }
+    },
+    "onboarding.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Three essentials before your first transformation." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Trois repères avant votre première transformation." } }
+      }
+    },
+    "onboarding.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Welcome to Huri" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bienvenue dans Huri" } }
+      }
+    },
+    "pdf.accessibility.page" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Page %d, %@, rotated %d degrees" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Page %d, %@, rotation %d degrés" } }
+      }
+    },
+    "pdf.action.assemble" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Assemble" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Assembler" } }
+      }
+    },
+    "pdf.action.deleteSelection" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete Selection" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer la sélection" } }
+      }
+    },
+    "pdf.action.down" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Down" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Descendre" } }
+      }
+    },
+    "pdf.action.extract" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Extract Selection" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Extraire la sélection" } }
+      }
+    },
+    "pdf.action.mergeExport" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Merge and Export" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fusionner et exporter" } }
+      }
+    },
+    "pdf.action.modify" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Modifier" } }
+      }
+    },
+    "pdf.action.rotateLeft" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rotate Left" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Pivoter à gauche" } }
+      }
+    },
+    "pdf.action.rotateRight" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rotate Right" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Pivoter à droite" } }
+      }
+    },
+    "pdf.action.split" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Split…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Découper…" } }
+      }
+    },
+    "pdf.action.splitDocument" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Split Document" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Découper le document" } }
+      }
+    },
+    "pdf.action.up" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Up" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Monter" } }
+      }
+    },
+    "pdf.add" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add PDFs" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajouter des PDF" } }
+      }
+    },
+    "pdf.addHelp" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add PDF documents" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajouter des documents PDF" } }
+      }
+    },
+    "pdf.choose" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose PDFs" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Choisir des PDF" } }
+      }
+    },
+    "pdf.clear" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vider" } }
+      }
+    },
+    "pdf.documents.one" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d document" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d document" } }
+      }
+    },
+    "pdf.documents.other" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d documents" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d documents" } }
+      }
+    },
+    "pdf.empty.release" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Release the PDFs" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Relâchez les PDF" } }
+      }
+    },
+    "pdf.empty.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add one or more PDFs to get started." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ajoutez un ou plusieurs PDF pour commencer." } }
+      }
+    },
+    "pdf.empty.tip" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tip: hold ⇧ or ⌘ to select multiple pages." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Astuce : maintenez ⇧ ou ⌘ pour sélectionner plusieurs pages." } }
+      }
+    },
+    "pdf.empty.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create Your Workspace" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Créez votre espace de travail" } }
+      }
+    },
+    "pdf.error.invalidRanges" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ranges must look like “1-3, 5, 8-10”." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Les plages doivent ressembler à « 1-3, 5, 8-10 »." } }
+      }
+    },
+    "pdf.error.selectAtLeastOne" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Select at least one PDF document." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Sélectionnez au moins un document PDF." } }
+      }
+    },
+    "pdf.export.merged.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Export Merged PDF" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Exporter le PDF fusionné" } }
+      }
+    },
+    "pdf.export.prompt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Export" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Exporter" } }
+      }
+    },
+    "pdf.export.selection.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Export Selected Pages" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Exporter les pages sélectionnées" } }
+      }
+    },
+    "pdf.eyebrow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "PDF WORKSHOP" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "ATELIER PDF" } }
+      }
+    },
+    "pdf.mode" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mode" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Mode" } }
+      }
+    },
+    "pdf.mode.everyPage" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Every Page" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Chaque page" } }
+      }
+    },
+    "pdf.mode.ranges" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ranges" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Plages" } }
+      }
+    },
+    "pdf.operation.completed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ complete" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%@ terminée" } }
+      }
+    },
+    "pdf.operation.extraction" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Extraction" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Extraction" } }
+      }
+    },
+    "pdf.operation.merge" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Merge" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fusion" } }
+      }
+    },
+    "pdf.operation.working" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ in progress…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%@ en cours…" } }
+      }
+    },
+    "pdf.page" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Page %d" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Page %d" } }
+      }
+    },
+    "pdf.pages" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pages" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Pages" } }
+      }
+    },
+    "pdf.pages.count" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d pages" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d pages" } }
+      }
+    },
+    "pdf.preview" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Preview" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aperçu" } }
+      }
+    },
+    "pdf.preview.detail" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ · page %d" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%@ · page %d" } }
+      }
+    },
+    "pdf.range.example" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Example: 1-3, 5, 8-10" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Exemple : 1-3, 5, 8-10" } }
+      }
+    },
+    "pdf.range.label" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Page Ranges" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Plages de pages" } }
+      }
+    },
+    "pdf.reorderHelp" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Drag rows to reorder them." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Glissez les lignes pour les réordonner." } }
+      }
+    },
+    "pdf.split.folder.prompt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Split Here" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Découper ici" } }
+      }
+    },
+    "pdf.split.folder.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose a Folder for Split PDFs" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Choisir le dossier pour les PDF découpés" } }
+      }
+    },
+    "pdf.split.success.one" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d document created" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d document créé" } }
+      }
+    },
+    "pdf.split.success.other" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d documents created" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d documents créés" } }
+      }
+    },
+    "pdf.split.working" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Splitting %@…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Découpe de %@…" } }
+      }
+    },
+    "pdf.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Merge, reorder, rotate, extract or split your pages." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fusionnez, réordonnez, pivotez, extrayez ou découpez vos pages." } }
+      }
+    },
+    "pdf.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Shape Your Document" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Composez votre document" } }
+      }
+    },
+    "pdf.zone" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "PDF document import area" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Zone d’import de documents PDF" } }
+      }
+    },
+    "sidebar.localProcessing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Local Processing" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Traitement local" } }
+      }
+    },
+    "sidebar.localSection" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "ON THIS MAC" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "SUR CE MAC" } }
+      }
+    },
+    "sidebar.noNetwork" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No network upload." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucun envoi réseau." } }
+      }
+    },
+    "sidebar.ready" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ready to transform" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Prêt à transformer" } }
+      }
+    },
+    "tour.finish" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Terminer" } }
+      }
+    },
+    "tour.import.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Drop one or several files here, or use the Add button." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Déposez ici un ou plusieurs fichiers, ou utilisez le bouton Ajouter." } }
+      }
+    },
+    "tour.import.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start with Your Files" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Commencez par vos fichiers" } }
+      }
+    },
+    "tour.pdf.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open the PDF workshop whenever you need page-level control." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ouvrez l’atelier PDF dès que vous souhaitez agir page par page." } }
+      }
+    },
+    "tour.pdf.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A Dedicated PDF Workshop" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Un atelier PDF dédié" } }
+      }
+    },
+    "tour.privacy.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This badge confirms that the current workflow stays on your Mac." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ce repère confirme que le parcours reste entièrement sur votre Mac." } }
+      }
+    },
+    "tour.privacy.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your Privacy, Visible" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre confidentialité, visible" } }
+      }
+    },
+    "tour.settings.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "After import, choose a compatible output, quality and destination here." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Après l’import, choisissez ici un format compatible, la qualité et la destination." } }
+      }
+    },
+    "tour.settings.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings That Adapt" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Des réglages qui s’adaptent" } }
+      }
+    },
+    "tour.sidebar.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Move between conversion, PDF tools and product information." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Passez de la conversion aux outils PDF et aux informations du produit." } }
+      }
+    },
+    "tour.sidebar.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Three Clear Spaces" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Trois espaces clairs" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

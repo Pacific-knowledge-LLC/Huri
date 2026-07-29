@@ -1,10 +1,13 @@
 # Huri
 
-> Vos fichiers, simplement.
+> Vos fichiers, transformés.
 
 Huri est une application macOS native de conversion et de manipulation de
 fichiers. Elle travaille localement, sans compte, sans télémétrie et sans envoi
 vers un serveur.
+
+Huri est développé et publié par
+[Pacific Knowledge](https://pacificknowledge.dev).
 
 ![Conversion locale dans Huri](docs/screenshots/conversion-dark.jpg)
 
@@ -67,8 +70,10 @@ Pour créer une image disque locale :
 make dmg
 ```
 
-Les artefacts locaux ne sont pas signés. Une distribution publique nécessite
-un certificat Developer ID, le Hardened Runtime et la notarisation Apple.
+Les artefacts locaux sont signés ad hoc. La pipeline de release sait produire
+un DMG Developer ID signé et notarisé pour Homebrew ainsi qu’un paquet signé
+pour App Store Connect lorsque les secrets Apple sont disponibles. Voir
+[le guide de release](docs/RELEASE.md).
 
 ## Architecture
 
@@ -82,6 +87,22 @@ Huri n’intègre ni backend, ni SDK analytique, ni publicités. L’accès rés
 pendant le build sert uniquement à résoudre les dépendances Swift. L’app
 compilée n’effectue aucun appel réseau.
 
+## Langues
+
+L’interface suit automatiquement la langue de macOS. Le français et l’anglais
+sont pris en charge, avec le français comme langue de repli. Le catalogue
+`Localizable.xcstrings` est la source de vérité ; exécutez
+`make localizations` après toute modification.
+
+## Marque et contact
+
+L’identité de Huri s’appuie sur le sens tahitien de « transformer ». Les règles
+de marque sont documentées dans [docs/BRAND.md](docs/BRAND.md).
+
+- Site : https://pacificknowledge.dev
+- Contact : admin@pacificknowledge.dev
+- GitHub : https://github.com/naikibro
+
 ## Licence
 
-Logiciel propriétaire. Voir [LICENSE](LICENSE).
+Logiciel propriétaire © 2026 Pacific Knowledge. Voir [LICENSE](LICENSE).

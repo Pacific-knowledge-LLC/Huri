@@ -1,4 +1,11 @@
+import Foundation
+
 public enum HuriCore {
-    public static let applicationName = "Huri"
-    public static let tagline = "Vos fichiers, simplement."
+  public static let applicationName = "Huri"
+  public static var tagline: String { HuriL10n.text("brand.tagline") }
+  public static let publisher = "Pacific Knowledge"
+  public static let websiteURL = URL(string: "https://pacificknowledge.dev")!
+  public static let supportEmail = "admin@pacificknowledge.dev"
+  public static let githubURL = URL(string: "https://github.com/naikibro")!
+  public static let bundleIdentifier = "dev.pacificknowledge.huri"
 }

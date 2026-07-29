@@ -2,20 +2,68 @@ name: CI
 
 on:
   push:
-    branches: ["main", "agent/**"]
+    branches: [main, "codex/**"]
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build-and-test:
+  quality:
+    name: Swift quality and distributable
     runs-on: macos-26
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v6
-      - name: Resolve dependencies
-        run: swift package resolve
-      - name: Build
-        run: swift build
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Toolchain
+        run: |
+          swift --version
+          xcodebuild -version
+
+      - name: Resolve pinned dependencies
+        run: |
+          swift package resolve
+          git diff --exit-code Package.resolved
+
+      - name: Validate localizations
+        run: |
+          make localizations
+          git diff --exit-code Sources/HuriCore/Resources
+
+      - name: Lint and secret scan
+        run: |
+          make lint
+          make security
+
+      - name: Build Debug and Release
+        run: |
+          swift build
+          swift build -c release
+
       - name: Test
-        run: swift test
-      - name: Package
-        run: bash Scripts/package-app.sh
+        run: swift test --parallel
+
+      - name: Package and verify
+        run: |
+          make package
+          bash Scripts/verify-app.sh
+          make dmg
+          shasum -a 256 dist/Huri.dmg | tee dist/Huri.dmg.sha256
+
+      - name: Upload local distribution proof
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: Huri-${{ github.sha }}
+          path: |
+            dist/Huri.app
+            dist/Huri.dmg
+            dist/Huri.dmg.sha256
+          if-no-files-found: error
+          retention-days: 14

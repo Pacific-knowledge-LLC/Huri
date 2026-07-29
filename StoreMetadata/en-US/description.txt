@@ -1,0 +1,7 @@
+Huri transforms files directly on your Mac.
+
+Convert images, documents, audio and video with settings tailored to each
+format. Use the PDF workshop to merge, reorder, rotate, extract or split pages.
+
+Huri works without an account, telemetry or file uploads. Your content stays
+on your Mac.
