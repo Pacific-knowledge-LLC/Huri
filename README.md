@@ -9,6 +9,8 @@ vers un serveur. Le code est libre sous licence MIT.
 Huri est développé et publié par
 [Pacific Knowledge](https://pacificknowledge.dev).
 
+Site officiel : <https://huri-jet.vercel.app>
+
 ![Conversion locale dans Huri](docs/screenshots/conversion-dark.jpg)
 
 ## Fonctionnalités
@@ -140,6 +142,8 @@ L’identité de Huri s’appuie sur le sens tahitien de « transformer ». Les 
 de marque sont documentées dans [docs/BRAND.md](docs/BRAND.md).
 
 - Site : https://pacificknowledge.dev
+- Produit : https://huri-jet.vercel.app
+- Code source : https://github.com/Pacific-knowledge-LLC/Huri
 - Contact : admin@pacificknowledge.dev
 
 ## Licence

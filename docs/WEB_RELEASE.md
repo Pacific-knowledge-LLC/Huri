@@ -6,6 +6,7 @@ depuis le même déploiement Vercel.
 ## Périmètre
 
 - Dépôt : <https://github.com/Pacific-knowledge-LLC/Huri>
+- Production : <https://huri-jet.vercel.app>
 - Branche de production : `main`
 - Hébergeur : Vercel
 - Artefacts :
