@@ -1,1 +1,1 @@
-The first Huri release: private local conversion, PDF tools and a French and English interface.
+305-format catalog, modular local engines, optimized batch conversion, PDF tools and a French and English interface.

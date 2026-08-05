@@ -52,13 +52,14 @@ jobs:
       ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
       GH_TOKEN: ${{ github.token }}
       TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+      TAP_REPOSITORY: ${{ vars.HOMEBREW_TAP_REPOSITORY }}
       TAG: ${{ needs.validate.outputs.tag }}
       VERSION: ${{ needs.validate.outputs.version }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - name: Require distribution credentials
         run: |
-          for name in APPLE_CERTIFICATE_P12 APPLE_CERTIFICATE_PASSWORD DEVELOPER_ID_APPLICATION ASC_KEY_ID ASC_ISSUER_ID ASC_PRIVATE_KEY TAP_TOKEN; do
+          for name in APPLE_CERTIFICATE_P12 APPLE_CERTIFICATE_PASSWORD DEVELOPER_ID_APPLICATION ASC_KEY_ID ASC_ISSUER_ID ASC_PRIVATE_KEY TAP_TOKEN TAP_REPOSITORY; do
             test -n "${!name}" || { echo "Missing secret: $name" >&2; exit 1; }
           done
       - name: Import signing identities
@@ -90,7 +91,7 @@ jobs:
         run: |
           url="https://github.com/${GITHUB_REPOSITORY}/releases/download/$TAG/Huri.dmg"
           sha="$(shasum -a 256 dist/Huri.dmg | awk '{print $1}')"
-          git clone "https://x-access-token:$TAP_TOKEN@github.com/naikibro/homebrew-tap.git" "$RUNNER_TEMP/tap"
+          git clone "https://x-access-token:$TAP_TOKEN@github.com/$TAP_REPOSITORY.git" "$RUNNER_TEMP/tap"
           bash Scripts/update-cask.sh "$VERSION" "$url" "$sha" "$RUNNER_TEMP/tap/Casks/huri.rb"
           git -C "$RUNNER_TEMP/tap" config user.name "github-actions[bot]"
           git -C "$RUNNER_TEMP/tap" config user.email "41898282+github-actions[bot]@users.noreply.github.com"

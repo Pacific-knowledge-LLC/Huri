@@ -50,6 +50,8 @@ if [[ ! -d "$resource_bundle" ]]; then
   exit 1
 fi
 cp -R "$resource_bundle" "$contents_dir/Resources/Huri_HuriCore.bundle"
+cp "$project_root/LICENSE" "$contents_dir/Resources/LICENSE.txt"
+cp "$project_root/THIRD_PARTY_NOTICES.md" "$contents_dir/Resources/THIRD_PARTY_NOTICES.md"
 
 if [[ "$distribution" == "appstore" ]]; then
   provisioning_profile="${PROVISIONING_PROFILE_PATH:-}"

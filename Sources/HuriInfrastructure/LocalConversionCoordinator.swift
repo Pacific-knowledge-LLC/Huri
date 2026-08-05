@@ -7,6 +7,8 @@ public actor LocalConversionCoordinator: ConversionExecuting {
   private let backgroundRemovalEngine: any BackgroundRemoving
   private let pdfEngine: PDFEngine
   private let documentProvider: LibreOfficeProvider
+  private let toolchainEngine: LocalToolchainConversionEngine
+  private let capabilityContext: CapabilityContext
   private let textEngine = TextDocumentEngine()
   private let mediaEngine = MediaConversionEngine()
   private let capabilities = CapabilityRegistry()
@@ -16,13 +18,24 @@ public actor LocalConversionCoordinator: ConversionExecuting {
     imageEngine: ImageEngine = .init(),
     backgroundRemovalEngine: any BackgroundRemoving = BackgroundRemovalEngine(),
     pdfEngine: PDFEngine = .init(),
-    documentProvider: LibreOfficeProvider = .init()
+    documentProvider: LibreOfficeProvider = .init(),
+    toolchain: LocalToolchain = .init()
   ) {
     self.inspector = inspector
     self.imageEngine = imageEngine
     self.backgroundRemovalEngine = backgroundRemovalEngine
     self.pdfEngine = pdfEngine
     self.documentProvider = documentProvider
+    self.toolchainEngine = LocalToolchainConversionEngine(toolchain: toolchain)
+    var backends = toolchain.availableBackends
+    if documentProvider.isAvailable {
+      backends.insert(.libreOffice)
+    }
+    self.capabilityContext = CapabilityContext(
+      wordConversionAvailable: documentProvider.isAvailable,
+      enabledImageOutputs: ImageEngine.supportedOutputFormats,
+      availableBackends: backends
+    )
   }
 
   public func convert(
@@ -46,16 +59,12 @@ public actor LocalConversionCoordinator: ConversionExecuting {
       )
     }
 
-    let context = CapabilityContext(
-      wordConversionAvailable: documentProvider.isAvailable,
-      enabledImageOutputs: ImageEngine.supportedOutputFormats
-    )
     for asset in plan.assets {
       guard
         capabilities.supports(
           input: asset.format,
           output: plan.outputFormat,
-          context: context
+          context: capabilityContext
         )
       else {
         throw ConversionError.unsupported(
@@ -92,49 +101,108 @@ public actor LocalConversionCoordinator: ConversionExecuting {
       )
     )
 
-    for (index, asset) in plan.assets.enumerated() {
-      try Task.checkCancellation()
+    if plan.outputFormat == .pdf,
+      plan.assets.count > 1,
+      plan.assets.allSatisfy({
+        $0.family == .image && FileFormat.nativeImageOutputs.contains($0.format)
+      })
+    {
+      let destination = InfrastructureSupport.uniqueDestination(
+        in: plan.destinationDirectory,
+        basename: HuriL10n.text("conversion.combinedFilename"),
+        extension: FileFormat.pdf.preferredExtension
+      )
+      let output = try await pdfEngine.imagesToPDF(
+        sources: plan.assets.map(\.sourceURL),
+        destination: destination
+      )
       progress(
         ConversionProgress(
-          completedUnitCount: index,
+          completedUnitCount: plan.assets.count,
           totalUnitCount: plan.assets.count,
-          message: HuriL10n.format(
-            "progress.convertingFile",
-            arguments: asset.filename
-          )
+          message: HuriL10n.text("conversion.progress.complete")
         )
       )
-      let converted = try await convert(
-        asset: asset,
-        outputFormat: plan.outputFormat,
-        destinationDirectory: plan.destinationDirectory,
-        temporaryDirectory: temporaryDirectory,
-        options: plan.options
+      let duration = ContinuousClock.now - startedAt
+      return ConversionResult(
+        artifacts: [OutputArtifact(url: output)],
+        warnings: warnings,
+        duration: Double(duration.components.seconds)
+          + Double(duration.components.attoseconds) / 1_000_000_000_000_000_000
       )
+    }
+
+    let basenames = uniqueOutputBasenames(
+      for: plan.assets,
+      outputFormat: plan.outputFormat,
+      directory: plan.destinationDirectory
+    )
+    let indexed = try await withThrowingTaskGroup(
+      of: IndexedConversion.self,
+      returning: [IndexedConversion].self
+    ) { group in
+      var nextIndex = 0
+      var completed = 0
+
+      func enqueue(_ index: Int) {
+        let asset = plan.assets[index]
+        let taskDirectory =
+          temporaryDirectory
+          .appendingPathComponent(asset.id.uuidString, isDirectory: true)
+        group.addTask { [self] in
+          let urls = try await convert(
+            asset: asset,
+            outputFormat: plan.outputFormat,
+            outputBasename: basenames[index],
+            destinationDirectory: plan.destinationDirectory,
+            temporaryDirectory: taskDirectory,
+            options: plan.options
+          )
+          return IndexedConversion(index: index, asset: asset, urls: urls)
+        }
+      }
+
+      while nextIndex < min(2, plan.assets.count) {
+        enqueue(nextIndex)
+        nextIndex += 1
+      }
+
+      var results: [IndexedConversion] = []
+      for try await result in group {
+        results.append(result)
+        completed += 1
+        progress(
+          ConversionProgress(
+            completedUnitCount: completed,
+            totalUnitCount: plan.assets.count,
+            message: HuriL10n.format(
+              "progress.fileComplete",
+              arguments: result.asset.filename
+            )
+          )
+        )
+        if nextIndex < plan.assets.count {
+          enqueue(nextIndex)
+          nextIndex += 1
+        }
+      }
+      return results.sorted { $0.index < $1.index }
+    }
+
+    for result in indexed {
       artifacts.append(
-        contentsOf: converted.map {
-          OutputArtifact(url: $0, sourceID: asset.id)
+        contentsOf: result.urls.map {
+          OutputArtifact(url: $0, sourceID: result.asset.id)
         }
       )
-      if converted.count > 1 {
+      if result.urls.count > 1 {
         warnings.append(
           HuriL10n.format(
             "warning.conversion.multiplePages",
-            arguments: asset.filename, converted.count
+            arguments: result.asset.filename, result.urls.count
           )
         )
       }
-      progress(
-        ConversionProgress(
-          completedUnitCount: index + 1,
-          totalUnitCount: plan.assets.count,
-          message: HuriL10n.format(
-            "progress.fileComplete",
-            arguments: asset.filename
-          )
-        )
-      )
-      await Task.yield()
     }
 
     let duration = ContinuousClock.now - startedAt
@@ -149,16 +217,20 @@ public actor LocalConversionCoordinator: ConversionExecuting {
   private func convert(
     asset: FileAsset,
     outputFormat: FileFormat,
+    outputBasename: String,
     destinationDirectory: URL,
     temporaryDirectory: URL,
     options: ConversionOptions
   ) async throws -> [URL] {
     switch asset.family {
     case .image:
-      if outputFormat == .pdf {
+      let isNativeInput = FileFormat.nativeImageOutputs.contains(asset.format)
+      let isNativeOutput = ImageEngine.supportedOutputFormats.contains(outputFormat)
+      if outputFormat == .pdf, isNativeInput {
         let destination = outputURL(
           for: asset,
           format: .pdf,
+          basename: outputBasename,
           directory: destinationDirectory
         )
         return [
@@ -171,6 +243,7 @@ public actor LocalConversionCoordinator: ConversionExecuting {
       let destination = outputURL(
         for: asset,
         format: outputFormat,
+        basename: outputBasename,
         directory: destinationDirectory
       )
       if options.removeBackground {
@@ -181,28 +254,57 @@ public actor LocalConversionCoordinator: ConversionExecuting {
           )
         ]
       }
+      if !isNativeInput || !isNativeOutput {
+        return [
+          try await toolchainEngine.convert(
+            source: asset.sourceURL,
+            inputFormat: asset.format,
+            outputFormat: outputFormat,
+            destination: destination,
+            options: options
+          )
+        ]
+      }
+      let engine = imageEngine
       return [
-        try imageEngine.convert(
-          source: asset.sourceURL,
-          to: outputFormat,
-          destination: destination,
-          options: options
-        )
+        try await Task.detached(priority: .userInitiated) {
+          try engine.convert(
+            source: asset.sourceURL,
+            to: outputFormat,
+            destination: destination,
+            options: options
+          )
+        }.value
       ]
 
     case .pdf:
       return try await renderPDFToImages(
         source: asset.sourceURL,
         outputFormat: outputFormat,
+        outputBasename: outputBasename,
         destinationDirectory: destinationDirectory,
         temporaryDirectory: temporaryDirectory,
         options: options
       )
 
     case .text:
+      if ![FileFormat.txt, .markdown].contains(asset.format)
+        || !ImageEngine.supportedOutputFormats.union([.pdf]).contains(outputFormat)
+      {
+        return [
+          try await externalConversion(
+            asset: asset,
+            outputFormat: outputFormat,
+            outputBasename: outputBasename,
+            destinationDirectory: destinationDirectory,
+            options: options
+          )
+        ]
+      }
       return try await convertTextLikeAsset(
         asset,
         outputFormat: outputFormat,
+        outputBasename: outputBasename,
         destinationDirectory: destinationDirectory,
         temporaryDirectory: temporaryDirectory,
         options: options,
@@ -210,27 +312,74 @@ public actor LocalConversionCoordinator: ConversionExecuting {
       )
 
     case .document:
+      if asset.format != .rtf
+        || !ImageEngine.supportedOutputFormats.union([.pdf]).contains(outputFormat)
+      {
+        return [
+          try await externalConversion(
+            asset: asset,
+            outputFormat: outputFormat,
+            outputBasename: outputBasename,
+            destinationDirectory: destinationDirectory,
+            options: options
+          )
+        ]
+      }
       return try await convertTextLikeAsset(
         asset,
         outputFormat: outputFormat,
+        outputBasename: outputBasename,
         destinationDirectory: destinationDirectory,
         temporaryDirectory: temporaryDirectory,
         options: options,
-        useLibreOffice: asset.format != .rtf
+        useLibreOffice: false
       )
 
     case .audio, .video:
       let destination = outputURL(
         for: asset,
         format: outputFormat,
+        basename: outputBasename,
         directory: destinationDirectory
       )
+      let nativeContext = CapabilityContext(
+        enabledImageOutputs: ImageEngine.supportedOutputFormats,
+        availableBackends: [.native]
+      )
+      if capabilityContext.availableBackends.contains(.ffmpeg)
+        || !capabilities.supports(
+          input: asset.format,
+          output: outputFormat,
+          context: nativeContext
+        )
+      {
+        return [
+          try await toolchainEngine.convert(
+            source: asset.sourceURL,
+            inputFormat: asset.format,
+            outputFormat: outputFormat,
+            destination: destination,
+            options: options
+          )
+        ]
+      }
       return [
         try await mediaEngine.convert(
           source: asset.sourceURL,
           sourceFamily: asset.family,
           format: outputFormat,
           destination: destination
+        )
+      ]
+
+    case .archive, .cad, .ebook, .font, .presentation, .vector:
+      return [
+        try await externalConversion(
+          asset: asset,
+          outputFormat: outputFormat,
+          outputBasename: outputBasename,
+          destinationDirectory: destinationDirectory,
+          options: options
         )
       ]
 
@@ -244,9 +393,32 @@ public actor LocalConversionCoordinator: ConversionExecuting {
     }
   }
 
+  private func externalConversion(
+    asset: FileAsset,
+    outputFormat: FileFormat,
+    outputBasename: String,
+    destinationDirectory: URL,
+    options: ConversionOptions
+  ) async throws -> URL {
+    let destination = outputURL(
+      for: asset,
+      format: outputFormat,
+      basename: outputBasename,
+      directory: destinationDirectory
+    )
+    return try await toolchainEngine.convert(
+      source: asset.sourceURL,
+      inputFormat: asset.format,
+      outputFormat: outputFormat,
+      destination: destination,
+      options: options
+    )
+  }
+
   private func convertTextLikeAsset(
     _ asset: FileAsset,
     outputFormat: FileFormat,
+    outputBasename: String,
     destinationDirectory: URL,
     temporaryDirectory: URL,
     options: ConversionOptions,
@@ -254,7 +426,12 @@ public actor LocalConversionCoordinator: ConversionExecuting {
   ) async throws -> [URL] {
     let finalPDF =
       outputFormat == .pdf
-      ? outputURL(for: asset, format: .pdf, directory: destinationDirectory)
+      ? outputURL(
+        for: asset,
+        format: .pdf,
+        basename: outputBasename,
+        directory: destinationDirectory
+      )
       : temporaryDirectory
         .appendingPathComponent(asset.sourceURL.deletingPathExtension().lastPathComponent)
         .appendingPathExtension("pdf")
@@ -274,6 +451,7 @@ public actor LocalConversionCoordinator: ConversionExecuting {
     return try await renderPDFToImages(
       source: finalPDF,
       outputFormat: outputFormat,
+      outputBasename: outputBasename,
       destinationDirectory: destinationDirectory,
       temporaryDirectory: temporaryDirectory,
       options: options
@@ -283,6 +461,7 @@ public actor LocalConversionCoordinator: ConversionExecuting {
   private func renderPDFToImages(
     source: URL,
     outputFormat: FileFormat,
+    outputBasename: String,
     destinationDirectory: URL,
     temporaryDirectory: URL,
     options: ConversionOptions
@@ -299,7 +478,8 @@ public actor LocalConversionCoordinator: ConversionExecuting {
       source: source,
       format: outputFormat,
       directory: renderDirectory,
-      options: options
+      options: options,
+      outputBasename: outputBasename
     )
     guard options.removeBackground else { return rendered }
 
@@ -324,12 +504,46 @@ public actor LocalConversionCoordinator: ConversionExecuting {
   private func outputURL(
     for asset: FileAsset,
     format: FileFormat,
+    basename: String? = nil,
     directory: URL
   ) -> URL {
     InfrastructureSupport.uniqueDestination(
       in: directory,
-      basename: asset.sourceURL.deletingPathExtension().lastPathComponent,
+      basename: basename ?? asset.sourceURL.deletingPathExtension().lastPathComponent,
       extension: format.preferredExtension
     )
   }
+
+  private func uniqueOutputBasenames(
+    for assets: [FileAsset],
+    outputFormat: FileFormat,
+    directory: URL
+  ) -> [String] {
+    var reserved: Set<String> = []
+    return assets.map { asset in
+      let basename = asset.sourceURL.deletingPathExtension().lastPathComponent
+      var candidate = basename
+      var suffix = 2
+      while reserved.contains(candidate.lowercased())
+        || FileManager.default.fileExists(
+          atPath:
+            directory
+            .appendingPathComponent(candidate)
+            .appendingPathExtension(outputFormat.preferredExtension)
+            .path
+        )
+      {
+        candidate = "\(basename)-\(suffix)"
+        suffix += 1
+      }
+      reserved.insert(candidate.lowercased())
+      return candidate
+    }
+  }
+}
+
+private struct IndexedConversion: Sendable {
+  let index: Int
+  let asset: FileAsset
+  let urls: [URL]
 }

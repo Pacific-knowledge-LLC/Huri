@@ -1,6 +1,216 @@
 {
   "sourceLanguage" : "fr",
   "strings" : {
+    "conversion.output.noResult" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No matching output format." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucun format de sortie correspondant." } }
+      }
+    },
+    "conversion.output.search" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Find an output format" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rechercher un format de sortie" } }
+      }
+    },
+    "conversion.combinedFilename" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "combined-images" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "images-regroupees" } }
+      }
+    },
+    "conversion.progress.complete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Conversion complete" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conversion terminée" } }
+      }
+    },
+    "error.archive.bomb" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The archive exceeds the safe local extraction limit." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "L’archive dépasse la limite d’extraction locale sûre." } }
+      }
+    },
+    "error.archive.requires7zip" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This archive format requires 7-Zip installed locally." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ce format d’archive nécessite 7-Zip installé localement." } }
+      }
+    },
+    "error.archive.symlink" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The archive contains a symbolic link and was stopped for safety." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "L’archive contient un lien symbolique et a été arrêtée par sécurité." } }
+      }
+    },
+    "error.archive.unsafePath" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The archive contains an unsafe path." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "L’archive contient un chemin non sûr." } }
+      }
+    },
+    "error.tool.exit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ exited with status %d." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%@ s’est terminé avec le statut %d." } }
+      }
+    },
+    "error.tool.missing" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ is required locally for this conversion." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%@ est requis localement pour cette conversion." } }
+      }
+    },
+    "error.tool.nativeRouting" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The conversion could not be routed to a local engine." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La conversion n’a pas pu être dirigée vers un moteur local." } }
+      }
+    },
+    "error.tool.noOutput" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The local engine did not create %@." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le moteur local n’a pas créé %@." } }
+      }
+    },
+    "error.tool.start" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unable to start %@: %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de démarrer %@ : %@" } }
+      }
+    },
+    "file.family.archive" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Archive" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Archive" } }
+      }
+    },
+    "file.family.ebook" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "EBook" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Livre numérique" } }
+      }
+    },
+    "file.family.font" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Font" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Police" } }
+      }
+    },
+    "file.family.presentation" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Presentation" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Présentation" } }
+      }
+    },
+    "file.family.vector" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Vector" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vectoriel" } }
+      }
+    },
+    "formats.available" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Available locally" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Disponible localement" } }
+      }
+    },
+    "formats.engineRequired" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Optional local engine required" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Moteur local optionnel requis" } }
+      }
+    },
+    "formats.eyebrow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "LOCAL FORMAT CATALOG" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "CATALOGUE DE FORMATS LOCAUX" } }
+      }
+    },
+    "formats.family" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Family" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Famille" } }
+      }
+    },
+    "formats.family.all" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Tous" } }
+      }
+    },
+    "formats.input" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "INPUT" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "ENTRÉE" } }
+      }
+    },
+    "formats.metric.available" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Formats ready now" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Formats prêts maintenant" } }
+      }
+    },
+    "formats.metric.catalog" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Catalogued formats" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Formats catalogués" } }
+      }
+    },
+    "formats.metric.engines" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Active local engines" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Moteurs locaux actifs" } }
+      }
+    },
+    "formats.metric.uploads" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Network uploads" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Envois réseau" } }
+      }
+    },
+    "formats.output" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "OUTPUT" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "SORTIE" } }
+      }
+    },
+    "formats.results" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d formats shown" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%d formats affichés" } }
+      }
+    },
+    "formats.search" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search by format or family" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rechercher par format ou famille" } }
+      }
+    },
+    "formats.start" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start a conversion" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lancer une conversion" } }
+      }
+    },
+    "formats.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Every competitor family, with honest runtime availability. No file ever leaves your Mac." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Toutes les familles concurrentes, avec une disponibilité réelle à l’exécution. Aucun fichier ne quitte votre Mac." } }
+      }
+    },
+    "formats.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "305 formats, one private workspace" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "305 formats, un seul espace privé" } }
+      }
+    },
+    "nav.formats" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Formats" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Formats" } }
+      }
+    },
     "about.contact" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Contact" } },
@@ -9,8 +219,8 @@
     },
     "about.copyright" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "© 2026 Pacific Knowledge. All rights reserved." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "© 2026 Pacific Knowledge. Tous droits réservés." } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "© 2026 Pacific Knowledge. Open source under the MIT License." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "© 2026 Pacific Knowledge. Open source sous licence MIT." } }
       }
     },
     "about.developedBy" : {

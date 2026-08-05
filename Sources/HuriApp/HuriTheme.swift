@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 
 enum HuriTheme {
@@ -8,6 +9,18 @@ enum HuriTheme {
   static let indigoDeep = Color(red: 0.14, green: 0.20, blue: 0.64)
   static let coral = Color(red: 0.98, green: 0.36, blue: 0.31)
   static let mint = Color(red: 0.04, green: 0.72, blue: 0.58)
+  static let accentText = adaptive(
+    light: NSColor(red: 0.00, green: 0.38, blue: 0.44, alpha: 1),
+    dark: NSColor(red: 0.28, green: 0.86, blue: 0.90, alpha: 1)
+  )
+  static let successText = adaptive(
+    light: NSColor(red: 0.00, green: 0.40, blue: 0.29, alpha: 1),
+    dark: NSColor(red: 0.28, green: 0.90, blue: 0.72, alpha: 1)
+  )
+  static let warningText = adaptive(
+    light: NSColor(red: 0.72, green: 0.14, blue: 0.10, alpha: 1),
+    dark: NSColor(red: 1.00, green: 0.51, blue: 0.45, alpha: 1)
+  )
   static let sidebarWidth: CGFloat = 226
   static let radius: CGFloat = 18
   static let smallRadius: CGFloat = 11
@@ -20,7 +33,7 @@ enum HuriTheme {
   )
 
   static let coolGradient = LinearGradient(
-    colors: [lagoon, indigo],
+    colors: [indigoDeep, indigo],
     startPoint: .topLeading,
     endPoint: .bottomTrailing
   )
@@ -30,6 +43,14 @@ enum HuriTheme {
     startPoint: .topLeading,
     endPoint: .bottomTrailing
   )
+
+  private static func adaptive(light: NSColor, dark: NSColor) -> Color {
+    Color(
+      nsColor: NSColor(name: nil) { appearance in
+        appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? dark : light
+      }
+    )
+  }
 }
 
 struct HuriCard<Content: View>: View {
@@ -67,7 +88,7 @@ struct HuriSectionTitle: View {
       Text(eyebrow.uppercased())
         .font(.caption.weight(.semibold))
         .tracking(0.8)
-        .foregroundStyle(HuriTheme.lagoon)
+        .foregroundStyle(HuriTheme.accentText)
       Text(title)
         .font(.system(size: 28, weight: .bold, design: .rounded))
       Text(subtitle)

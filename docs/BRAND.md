@@ -49,7 +49,6 @@ monogramme littéral. Elle doit toujours être utilisée depuis la source
 - Pacific Knowledge
 - https://pacificknowledge.dev
 - admin@pacificknowledge.dev
-- https://github.com/naikibro
 
 Le prénom du développeur n’est pas utilisé dans l’application ni dans ses
 métadonnées publiques.

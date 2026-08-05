@@ -111,17 +111,31 @@ struct PDFToolsView: View {
     } isTargeted: { targeted in
       model.dropIsTargeted = targeted
     }
-    .accessibilityLabel(HuriL10n.text("pdf.zone"))
+    .accessibilityElement(children: .contain)
+    .accessibilityAction(named: HuriL10n.text("pdf.choose"), openPDFPanel)
   }
 
   private var editor: some View {
-    HStack(spacing: 14) {
-      pageList
-        .frame(width: 310)
-      preview
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-      actionPanel
-        .frame(width: 252)
+    ViewThatFits(in: .horizontal) {
+      HStack(spacing: 14) {
+        pageList
+          .frame(width: 310)
+        preview
+          .frame(minWidth: 300, maxWidth: .infinity, maxHeight: .infinity)
+        actionPanel
+          .frame(width: 252)
+      }
+
+      HStack(spacing: 14) {
+        pageList
+          .frame(width: 240)
+        VStack(spacing: 14) {
+          preview
+            .frame(minWidth: 300, maxWidth: .infinity, minHeight: 220)
+          actionPanel
+            .frame(maxWidth: .infinity, maxHeight: 215)
+        }
+      }
     }
     .frame(minHeight: 450)
   }
@@ -349,7 +363,7 @@ struct PDFToolsView: View {
     case .success(let message, _):
       HStack(spacing: 12) {
         Image(systemName: "checkmark.circle.fill")
-          .foregroundStyle(HuriTheme.mint)
+          .foregroundStyle(HuriTheme.successText)
         Text(message)
           .font(.callout.weight(.medium))
         Spacer()
@@ -368,7 +382,7 @@ struct PDFToolsView: View {
     case .failure(let message):
       HStack(spacing: 12) {
         Image(systemName: "exclamationmark.octagon.fill")
-          .foregroundStyle(HuriTheme.coral)
+          .foregroundStyle(HuriTheme.warningText)
         Text(message)
           .font(.callout)
           .lineLimit(2)

@@ -75,7 +75,7 @@ struct ConversionWorkspaceView: View {
   private var privacyPill: some View {
     Label(HuriL10n.text("conversion.privacy.badge"), systemImage: "lock.fill")
       .font(.caption.weight(.medium))
-      .foregroundStyle(HuriTheme.mint)
+      .foregroundStyle(HuriTheme.successText)
       .padding(.horizontal, 10)
       .padding(.vertical, 6)
       .background(HuriTheme.mint.opacity(0.1), in: Capsule())
@@ -99,11 +99,17 @@ struct ConversionWorkspaceView: View {
 
   private var populatedWorkspace: some View {
     VStack(spacing: 18) {
-      HStack(alignment: .top, spacing: 18) {
-        fileList
-          .frame(maxWidth: .infinity)
-        settings
-          .frame(width: 300)
+      ViewThatFits(in: .horizontal) {
+        HStack(alignment: .top, spacing: 18) {
+          fileList
+            .frame(minWidth: 470, maxWidth: .infinity)
+          settings
+            .frame(width: 310)
+        }
+        VStack(spacing: 18) {
+          fileList
+          settings
+        }
       }
       statusAndAction
     }
@@ -206,14 +212,30 @@ struct ConversionWorkspaceView: View {
             systemImage: "exclamationmark.triangle"
           )
           .font(.callout)
-          .foregroundStyle(HuriTheme.coral)
+          .foregroundStyle(HuriTheme.warningText)
         } else {
+          if model.supportedOutputs.count > 9 {
+            TextField(
+              HuriL10n.text("conversion.output.search"),
+              text: $model.outputSearch
+            )
+            .textFieldStyle(.roundedBorder)
+            .accessibilityLabel(HuriL10n.text("conversion.output.search"))
+          }
+          if model.filteredSupportedOutputs.isEmpty {
+            Label(
+              HuriL10n.text("conversion.output.noResult"),
+              systemImage: "magnifyingglass"
+            )
+            .font(.callout)
+            .foregroundStyle(.secondary)
+          }
           LazyVGrid(
             columns: [GridItem(.adaptive(minimum: 70), spacing: 8)],
             alignment: .leading,
             spacing: 8
           ) {
-            ForEach(model.supportedOutputs) { format in
+            ForEach(model.filteredSupportedOutputs) { format in
               FormatChoice(
                 format: format,
                 selected: model.selectedOutput == format
@@ -231,7 +253,7 @@ struct ConversionWorkspaceView: View {
         Text(HuriL10n.text("conversion.settings"))
           .font(.headline)
 
-        if model.selectedOutput?.isLossy == true {
+        if model.showsQualityOption {
           LabeledContent(
             HuriL10n.text("conversion.quality"),
             value: "\(Int(model.quality * 100)) %"
@@ -241,16 +263,18 @@ struct ConversionWorkspaceView: View {
             .accessibilityLabel(HuriL10n.text("conversion.quality"))
         }
 
-        Picker(HuriL10n.text("conversion.size"), selection: $model.scale) {
-          Text("50 %").tag(0.5)
-          Text("100 %").tag(1.0)
-          Text("200 %").tag(2.0)
-          Text("400 %").tag(4.0)
+        if model.showsScaleOption {
+          Picker(HuriL10n.text("conversion.size"), selection: $model.scale) {
+            Text("50 %").tag(0.5)
+            Text("100 %").tag(1.0)
+            Text("200 %").tag(2.0)
+            Text("400 %").tag(4.0)
+          }
+          .pickerStyle(.menu)
+          .accessibilityLabel(HuriL10n.text("conversion.size"))
         }
-        .pickerStyle(.menu)
-        .accessibilityLabel(HuriL10n.text("conversion.size"))
 
-        if model.items.contains(where: { $0.asset.family == .pdf }) {
+        if model.showsPDFResolutionOption {
           Picker(HuriL10n.text("conversion.pdfResolution"), selection: $model.pdfDPI) {
             ForEach([72, 144, 300, 600], id: \.self) { dpi in
               Text(HuriL10n.format("conversion.dpi", arguments: dpi))
@@ -260,11 +284,13 @@ struct ConversionWorkspaceView: View {
           .pickerStyle(.menu)
         }
 
-        Toggle(
-          HuriL10n.text("conversion.preserveMetadata"),
-          isOn: $model.preserveMetadata
-        )
-        .font(.callout)
+        if model.showsMetadataOption {
+          Toggle(
+            HuriL10n.text("conversion.preserveMetadata"),
+            isOn: $model.preserveMetadata
+          )
+          .font(.callout)
+        }
 
         if model.selectedOutput == .png {
           VStack(alignment: .leading, spacing: 5) {
@@ -375,7 +401,7 @@ struct ConversionWorkspaceView: View {
       HStack(spacing: 13) {
         Image(systemName: "checkmark.circle.fill")
           .font(.title2)
-          .foregroundStyle(HuriTheme.mint)
+          .foregroundStyle(HuriTheme.successText)
         VStack(alignment: .leading, spacing: 3) {
           Text(HuriL10n.text("conversion.success.title"))
             .font(.headline)
@@ -393,6 +419,12 @@ struct ConversionWorkspaceView: View {
           )
           .font(.caption)
           .foregroundStyle(.secondary)
+          if !result.warnings.isEmpty {
+            Text(result.warnings.joined(separator: "\n"))
+              .font(.caption2)
+              .foregroundStyle(.secondary)
+              .lineLimit(3)
+          }
         }
         Spacer()
         Button(HuriL10n.text("common.close")) {
@@ -411,16 +443,19 @@ struct ConversionWorkspaceView: View {
       HStack(spacing: 13) {
         Image(systemName: "exclamationmark.octagon.fill")
           .font(.title2)
-          .foregroundStyle(HuriTheme.coral)
+          .foregroundStyle(HuriTheme.warningText)
         VStack(alignment: .leading, spacing: 3) {
           Text(HuriL10n.text("conversion.failure.title"))
             .font(.headline)
           Text(message)
             .font(.caption)
             .foregroundStyle(.secondary)
-            .lineLimit(3)
+            .textSelection(.enabled)
         }
         Spacer()
+        Button(HuriL10n.text("common.close")) {
+          model.dismissStatus()
+        }
         Button(HuriL10n.text("common.retry")) {
           model.startConversion()
         }
@@ -585,9 +620,15 @@ private struct ImportedAssetRow: View {
 
   private var symbol: String {
     switch item.asset.family {
+    case .archive: "archivebox"
+    case .cad: "ruler"
+    case .ebook: "books.vertical"
+    case .font: "textformat"
     case .image: "photo"
     case .pdf: "doc.richtext"
     case .document, .text: "doc.text"
+    case .presentation: "rectangle.on.rectangle.angled"
+    case .vector: "point.3.connected.trianglepath.dotted"
     case .audio: "waveform"
     case .video: "film"
     case .unsupported: "questionmark.square.dashed"
@@ -657,11 +698,18 @@ private struct FormatChoice: View {
 
   private var symbol: String {
     switch format.family {
+    case .archive: "archivebox"
+    case .cad: "ruler"
+    case .document, .text: "doc.text"
+    case .ebook: "books.vertical"
+    case .font: "textformat"
     case .image: "photo"
     case .pdf: "doc.richtext"
+    case .presentation: "rectangle.on.rectangle.angled"
+    case .vector: "point.3.connected.trianglepath.dotted"
     case .audio: "waveform"
     case .video: "film"
-    default: "doc"
+    case .unsupported: "questionmark.square.dashed"
     }
   }
 }

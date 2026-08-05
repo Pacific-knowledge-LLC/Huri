@@ -19,6 +19,9 @@ fail() {
 [[ -f "$resources/fr.lproj/Localizable.strings" ]] || fail "missing French localization"
 [[ -f "$resources/en.lproj/Localizable.strings" ]] || fail "missing English localization"
 [[ -f "$app_path/Contents/Resources/AppIcon.icns" ]] || fail "missing application icon"
+[[ -f "$app_path/Contents/Resources/LICENSE.txt" ]] || fail "missing open-source license"
+[[ -f "$app_path/Contents/Resources/THIRD_PARTY_NOTICES.md" ]] \
+  || fail "missing third-party notices"
 
 bundle_id="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$plist")"
 version="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$plist")"

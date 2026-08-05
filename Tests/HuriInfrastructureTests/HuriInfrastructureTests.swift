@@ -102,6 +102,22 @@ final class HuriInfrastructureTests: XCTestCase {
     }
   }
 
+  func testImageEngineUsesContentInsteadOfMisleadingWebPExtension() throws {
+    let temporaryDirectory = try makeTemporaryDirectory()
+    defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
+    let source = temporaryDirectory.appendingPathComponent("actually-png.webp")
+    try makePNG(width: 20, height: 12).write(to: source, options: .atomic)
+    let destination = temporaryDirectory.appendingPathComponent("result.jpg")
+
+    try ImageEngine().convert(
+      source: source,
+      to: .jpeg,
+      destination: destination
+    )
+
+    XCTAssertTrue(FileManager.default.fileExists(atPath: destination.path))
+  }
+
   func testConversionNeverOverwritesTheSource() async throws {
     let temporaryDirectory = try makeTemporaryDirectory()
     defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
@@ -237,6 +253,179 @@ final class HuriInfrastructureTests: XCTestCase {
     }
   }
 
+  func testImageBatchToPDFProducesOneOrderedMultipageDocument() async throws {
+    let temporaryDirectory = try makeTemporaryDirectory()
+    defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
+    let firstImage = temporaryDirectory.appendingPathComponent("first.png")
+    let secondImage = temporaryDirectory.appendingPathComponent("second.png")
+    try makePNG(width: 64, height: 32).write(to: firstImage, options: .atomic)
+    try makePNG(width: 32, height: 64).write(to: secondImage, options: .atomic)
+    let inspector = LocalFileInspector()
+    let assets = try await [
+      inspector.inspect(url: firstImage),
+      inspector.inspect(url: secondImage),
+    ]
+
+    let result = try await LocalConversionCoordinator().convert(
+      plan: ConversionPlan(
+        assets: assets,
+        outputFormat: .pdf,
+        destinationDirectory: temporaryDirectory.appendingPathComponent("output")
+      ),
+      progress: { _ in }
+    )
+
+    XCTAssertEqual(result.artifacts.count, 1)
+    let output = try await inspector.inspect(url: result.artifacts[0].url)
+    XCTAssertEqual(output.metadata.pageCount, 2)
+  }
+
+  func testFFmpegProviderConvertsLocalWAVToMP3WhenInstalled() async throws {
+    guard let ffmpeg = LocalToolchain().executable(for: .ffmpeg) else {
+      throw XCTSkip("FFmpeg is not installed in this environment.")
+    }
+    let temporaryDirectory = try makeTemporaryDirectory()
+    defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
+    let source = temporaryDirectory.appendingPathComponent("tone.wav")
+    try makeSilentWAV(durationMilliseconds: 120).write(to: source, options: .atomic)
+    let inspector = LocalFileInspector()
+    let asset = try await inspector.inspect(url: source)
+    let toolchain = LocalToolchain(executables: [.ffmpeg: ffmpeg])
+
+    let result = try await LocalConversionCoordinator(toolchain: toolchain).convert(
+      plan: ConversionPlan(
+        assets: [asset],
+        outputFormat: .mp3,
+        destinationDirectory: temporaryDirectory.appendingPathComponent("output")
+      ),
+      progress: { _ in }
+    )
+
+    XCTAssertEqual(result.artifacts.count, 1)
+    let output = try await inspector.inspect(url: result.artifacts[0].url)
+    XCTAssertEqual(output.format, .mp3)
+    XCTAssertGreaterThan(output.metadata.byteCount, 0)
+  }
+
+  func testPandocProviderConvertsMarkdownToDOCXWhenInstalled() async throws {
+    guard let pandoc = LocalToolchain().executable(for: .pandoc) else {
+      throw XCTSkip("Pandoc is not installed in this environment.")
+    }
+    let temporaryDirectory = try makeTemporaryDirectory()
+    defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
+    let source = temporaryDirectory.appendingPathComponent("notes.md")
+    try Data("# Huri\n\nConversion **locale**.".utf8).write(to: source, options: .atomic)
+    let inspector = LocalFileInspector()
+    let asset = try await inspector.inspect(url: source)
+    let toolchain = LocalToolchain(executables: [.pandoc: pandoc])
+
+    let result = try await LocalConversionCoordinator(toolchain: toolchain).convert(
+      plan: ConversionPlan(
+        assets: [asset],
+        outputFormat: .docx,
+        destinationDirectory: temporaryDirectory.appendingPathComponent("output")
+      ),
+      progress: { _ in }
+    )
+
+    XCTAssertEqual(result.artifacts.count, 1)
+    XCTAssertEqual(result.artifacts[0].url.pathExtension, "docx")
+    XCTAssertGreaterThan(
+      try result.artifacts[0].url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0,
+      0
+    )
+  }
+
+  func testSystemArchiveProviderConvertsZIPToTarWithoutNetwork() async throws {
+    guard
+      FileManager.default.isExecutableFile(atPath: "/usr/bin/zip"),
+      FileManager.default.isExecutableFile(atPath: "/usr/bin/tar")
+    else {
+      throw XCTSkip("System archive tools are unavailable.")
+    }
+    let temporaryDirectory = try makeTemporaryDirectory()
+    defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
+    let contents = temporaryDirectory.appendingPathComponent("contents", isDirectory: true)
+    try FileManager.default.createDirectory(at: contents, withIntermediateDirectories: true)
+    try Data("local-only".utf8).write(
+      to: contents.appendingPathComponent("proof.txt"),
+      options: .atomic
+    )
+    let source = temporaryDirectory.appendingPathComponent("source.zip")
+    try runProcess(
+      executable: "/usr/bin/zip",
+      arguments: ["-q", "-r", source.path, "."],
+      currentDirectory: contents
+    )
+    let inspector = LocalFileInspector()
+    let asset = try await inspector.inspect(url: source)
+    let toolchain = LocalToolchain(
+      executables: [.archive: URL(fileURLWithPath: "/usr/bin/tar")]
+    )
+
+    let result = try await LocalConversionCoordinator(toolchain: toolchain).convert(
+      plan: ConversionPlan(
+        assets: [asset],
+        outputFormat: .tar,
+        destinationDirectory: temporaryDirectory.appendingPathComponent("output")
+      ),
+      progress: { _ in }
+    )
+
+    XCTAssertEqual(result.artifacts.count, 1)
+    XCTAssertGreaterThan(
+      try result.artifacts[0].url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0,
+      0
+    )
+  }
+
+  func testArchiveProviderRejectsSymbolicLinksBeforeExtraction() async throws {
+    guard
+      FileManager.default.isExecutableFile(atPath: "/usr/bin/zip"),
+      FileManager.default.isExecutableFile(atPath: "/usr/bin/tar")
+    else {
+      throw XCTSkip("System archive tools are unavailable.")
+    }
+    let temporaryDirectory = try makeTemporaryDirectory()
+    defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
+    let contents = temporaryDirectory.appendingPathComponent("contents", isDirectory: true)
+    try FileManager.default.createDirectory(at: contents, withIntermediateDirectories: true)
+    try Data("safe".utf8).write(
+      to: contents.appendingPathComponent("proof.txt"),
+      options: .atomic
+    )
+    try FileManager.default.createSymbolicLink(
+      at: contents.appendingPathComponent("shortcut"),
+      withDestinationURL: contents.appendingPathComponent("proof.txt")
+    )
+    let source = temporaryDirectory.appendingPathComponent("unsafe.zip")
+    try runProcess(
+      executable: "/usr/bin/zip",
+      arguments: ["-q", "-y", "-r", source.path, "."],
+      currentDirectory: contents
+    )
+    let asset = try await LocalFileInspector().inspect(url: source)
+    let coordinator = LocalConversionCoordinator(
+      toolchain: LocalToolchain(
+        executables: [.archive: URL(fileURLWithPath: "/usr/bin/tar")]
+      )
+    )
+
+    do {
+      _ = try await coordinator.convert(
+        plan: ConversionPlan(
+          assets: [asset],
+          outputFormat: .tar,
+          destinationDirectory: temporaryDirectory.appendingPathComponent("output")
+        ),
+        progress: { _ in }
+      )
+      XCTFail("A symbolic link archive must be rejected.")
+    } catch {
+      XCTAssertTrue(error.localizedDescription.localizedCaseInsensitiveContains("symbol"))
+    }
+  }
+
   private func makeTemporaryDirectory() throws -> URL {
     let directory = FileManager.default.temporaryDirectory
       .appendingPathComponent(
@@ -296,6 +485,52 @@ final class HuriInfrastructureTests: XCTestCase {
     CGImageDestinationAddImage(destination, image, nil)
     XCTAssertTrue(CGImageDestinationFinalize(destination))
     return data as Data
+  }
+
+  private func makeSilentWAV(durationMilliseconds: Int) throws -> Data {
+    let sampleRate = 8_000
+    let sampleCount = max(sampleRate * durationMilliseconds / 1_000, 1)
+    let dataSize = sampleCount * 2
+    var data = Data()
+    data.append(contentsOf: Array("RIFF".utf8))
+    data.appendLittleEndian(UInt32(36 + dataSize))
+    data.append(contentsOf: Array("WAVEfmt ".utf8))
+    data.appendLittleEndian(UInt32(16))
+    data.appendLittleEndian(UInt16(1))
+    data.appendLittleEndian(UInt16(1))
+    data.appendLittleEndian(UInt32(sampleRate))
+    data.appendLittleEndian(UInt32(sampleRate * 2))
+    data.appendLittleEndian(UInt16(2))
+    data.appendLittleEndian(UInt16(16))
+    data.append(contentsOf: Array("data".utf8))
+    data.appendLittleEndian(UInt32(dataSize))
+    data.append(Data(repeating: 0, count: dataSize))
+    return data
+  }
+
+  private func runProcess(
+    executable: String,
+    arguments: [String],
+    currentDirectory: URL
+  ) throws {
+    let process = Process()
+    process.executableURL = URL(fileURLWithPath: executable)
+    process.arguments = arguments
+    process.currentDirectoryURL = currentDirectory
+    process.standardOutput = Pipe()
+    process.standardError = Pipe()
+    try process.run()
+    process.waitUntilExit()
+    XCTAssertEqual(process.terminationStatus, 0)
+  }
+}
+
+extension Data {
+  fileprivate mutating func appendLittleEndian<T: FixedWidthInteger>(_ value: T) {
+    var littleEndian = value.littleEndian
+    Swift.withUnsafeBytes(of: &littleEndian) { bytes in
+      append(contentsOf: bytes)
+    }
   }
 }
 

@@ -195,7 +195,8 @@ public actor PDFEngine: PDFEditing {
     source: URL,
     format: FileFormat,
     directory: URL,
-    options: ConversionOptions = .init()
+    options: ConversionOptions = .init(),
+    outputBasename: String? = nil
   ) async throws -> [URL] {
     guard format.family == .image else {
       throw ConversionError.unsupported(HuriL10n.text("error.output.notImage"))
@@ -211,7 +212,8 @@ public actor PDFEngine: PDFEditing {
     try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
 
     var outputs: [URL] = []
-    let basename = source.deletingPathExtension().lastPathComponent
+    let basename =
+      outputBasename ?? source.deletingPathExtension().lastPathComponent
     for pageIndex in 0..<document.pageCount {
       try Task.checkCancellation()
       guard let page = document.page(at: pageIndex) else { continue }

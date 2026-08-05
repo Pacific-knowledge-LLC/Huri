@@ -4,7 +4,7 @@
 
 Huri est une application macOS native de conversion et de manipulation de
 fichiers. Elle travaille localement, sans compte, sans télémétrie et sans envoi
-vers un serveur.
+vers un serveur. Le code est libre sous licence MIT.
 
 Huri est développé et publié par
 [Pacific Knowledge](https://pacificknowledge.dev).
@@ -14,6 +14,10 @@ Huri est développé et publié par
 ## Fonctionnalités
 
 - Détection du contenu et proposition des seules conversions cohérentes.
+- Catalogue de 305 formats distincts couvrant archives, audio, CAD, documents,
+  livres numériques, polices, images, présentations, vecteurs et vidéos.
+- Capacités vérifiées à l’exécution : une conversion n’est proposée que si son
+  moteur local est réellement disponible.
 - Images : PNG, JPEG, WebP, TIFF, HEIC, GIF et BMP.
 - Images vers PDF et PDF multipage vers images.
 - Détourage automatique avec Vision lors d’un export PNG.
@@ -23,22 +27,36 @@ Huri est développé et publié par
 - Vidéo : MOV, MP4 et M4V, avec extraction audio M4A.
 - Import par glisser-déposer ou sélecteur macOS, traitement par lot et
   progression.
+- Moteurs open source locaux facultatifs : FFmpeg, ImageMagick, LibreOffice,
+  Pandoc, calibre, 7-Zip, FontForge et Inkscape.
 
-### À propos de Word
+### Moteurs locaux facultatifs
 
-macOS ne fournit pas d’API publique capable de rendre fidèlement DOC/DOCX en
-PDF. Huri détecte donc un fournisseur LibreOffice installé localement et
-active la conversion Word uniquement lorsqu’il est disponible. Aucun paquet
-de plusieurs centaines de mégaoctets n’est incorporé dans Huri.
+Le moteur natif couvre les conversions usuelles sans installation. Pour la
+longue traîne de Convertio, Huri détecte automatiquement les outils installés
+dans `PATH`, Homebrew et les emplacements d’applications macOS habituels :
+
+```bash
+brew install ffmpeg imagemagick pandoc sevenzip fontforge
+brew install --cask libreoffice calibre inkscape
+```
+
+Ces outils restent entièrement locaux. Huri ne les télécharge pas, ne les
+embarque pas et n’exécute jamais de shell : chaque processus reçoit une liste
+d’arguments séparés. La disponibilité affichée dans l’écran **Formats** reflète
+le Mac courant. Les formats source uniquement (par exemple de nombreux RAW) ne
+sont jamais proposés comme sorties.
 
 ## Principes
 
 - **Privé** : chaque octet reste sur le Mac.
 - **Natif** : SwiftUI, AppKit, PDFKit, Image I/O, Vision et AVFoundation.
-- **Léger** : une seule dépendance de production, `libwebp`, pour garantir
-  l’encodage WebP.
+- **Léger** : le cœur distribué garde une seule dépendance de production,
+  `libwebp`; les moteurs étendus restent facultatifs.
 - **Prudent** : le fichier source n’est jamais modifié et les exports utilisent
   des noms uniques.
+- **Honnête** : « format connu » et « conversion exécutable » sont deux états
+  distincts ; une paire n’apparaît que si un moteur local sait la traiter.
 
 ## Prérequis
 
@@ -56,6 +74,26 @@ make run
 
 Le projet est un package Swift afin de rester lisible et reproductible. Xcode
 peut ouvrir directement `Package.swift`.
+
+### Site vitrine
+
+La landing page est volontairement statique : HTML, CSS et JavaScript natifs,
+sans framework, backend, analytics ou ressource distante. Pour la prévisualiser :
+
+```bash
+python3 -m http.server 4173
+```
+
+Les deux installateurs macOS référencés par le site sont générés et vérifiés
+avec :
+
+```bash
+make downloads
+```
+
+La configuration de production se trouve dans `vercel.json`. Les étapes de
+déploiement, validation et rollback sont détaillées dans
+[docs/WEB_RELEASE.md](docs/WEB_RELEASE.md).
 
 ## Créer l’application
 
@@ -79,7 +117,9 @@ pour App Store Connect lorsque les secrets Apple sont disponibles. Voir
 
 Le cœur métier ne dépend d’aucun framework d’interface. Les services natifs
 implémentent les protocoles du cœur, puis l’application SwiftUI les orchestre.
-Voir [ADR-001](docs/ADR-001.md) et le [rapport QA](docs/QA.md).
+Voir [ADR-001](docs/ADR-001.md), [ADR-002](docs/ADR-002.md), la
+[matrice concurrentielle](docs/COMPETITOR_MATRIX.md) et le
+[rapport QA](docs/QA.md).
 
 ## Confidentialité
 
@@ -101,8 +141,9 @@ de marque sont documentées dans [docs/BRAND.md](docs/BRAND.md).
 
 - Site : https://pacificknowledge.dev
 - Contact : admin@pacificknowledge.dev
-- GitHub : https://github.com/naikibro
 
 ## Licence
 
-Logiciel propriétaire © 2026 Pacific Knowledge. Voir [LICENSE](LICENSE).
+Huri est un logiciel libre © 2026 Pacific Knowledge, publié sous
+[licence MIT](LICENSE). Les dépendances et moteurs facultatifs sont documentés
+dans [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

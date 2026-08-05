@@ -25,16 +25,27 @@ public final class LocalFileInspector: FileTypeDetecting, @unchecked Sendable {
 
     let header = try readHeader(at: url)
     let magicFormat = Self.formatFromMagicBytes(header)
-    let extensionFormat = FileFormat.from(filenameExtension: url.pathExtension)
+    let extensionFormat = Self.formatFromFilename(url.lastPathComponent)
     let typeFormat = formatFromContentType(url: url)
+    let contentFormat: FileFormat?
+    if magicFormat == .doc,
+      [FileFormat("xls"), FileFormat("ppt"), .doc].contains(extensionFormat)
+    {
+      // Legacy Office files share the same OLE container signature. The
+      // extension is the only cheap discriminator before LibreOffice probes it.
+      contentFormat = extensionFormat
+    } else {
+      contentFormat = magicFormat
+    }
     let resolved =
-      magicFormat ?? typeFormat ?? (extensionFormat == .unknown ? nil : extensionFormat) ?? .unknown
+      contentFormat ?? typeFormat ?? (extensionFormat == .unknown ? nil : extensionFormat)
+      ?? .unknown
 
     let warning: String?
-    if let magicFormat, extensionFormat != .unknown, magicFormat != extensionFormat {
+    if let contentFormat, extensionFormat != .unknown, contentFormat != extensionFormat {
       warning = HuriL10n.format(
         "error.file.warningExtension",
-        arguments: magicFormat.displayName, url.pathExtension
+        arguments: contentFormat.displayName, url.pathExtension
       )
     } else {
       warning = nil
@@ -71,6 +82,12 @@ public final class LocalFileInspector: FileTypeDetecting, @unchecked Sendable {
       return .tiff
     }
     if bytes.starts(with: [0x42, 0x4D]) { return .bmp }
+    if bytes.starts(with: Array("fLaC".utf8)) { return .flac }
+    if bytes.starts(with: Array("OggS".utf8)) { return .ogg }
+    if bytes.starts(with: [0x37, 0x7A, 0xBC, 0xAF, 0x27, 0x1C]) { return .sevenZip }
+    if bytes.starts(with: [0x1F, 0x8B]) { return .tarGzip }
+    if bytes.starts(with: Array("BZh".utf8)) { return .tarBzip2 }
+    if bytes.starts(with: [0xFD, 0x37, 0x7A, 0x58, 0x5A, 0x00]) { return .tarXz }
     if bytes.starts(with: [0x7B, 0x5C, 0x72, 0x74, 0x66]) { return .rtf }
     if bytes.starts(with: [0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1]) { return .doc }
     if bytes.starts(with: Array("ID3".utf8)) { return .mp3 }
@@ -80,6 +97,7 @@ public final class LocalFileInspector: FileTypeDetecting, @unchecked Sendable {
       switch ascii(bytes, offset: 8, count: 4) {
       case "WEBP": return .webp
       case "WAVE": return .wav
+      case "AVI ": return .avi
       default: break
       }
     }
@@ -90,6 +108,7 @@ public final class LocalFileInspector: FileTypeDetecting, @unchecked Sendable {
 
     if bytes.count >= 12, ascii(bytes, offset: 4, count: 4) == "ftyp" {
       let brand = ascii(bytes, offset: 8, count: 4).lowercased()
+      if ["avif", "avis"].contains(brand) { return .avif }
       if ["heic", "heix", "hevc", "hevx", "heim", "heis", "mif1", "msf1"].contains(brand) {
         return .heic
       }
@@ -100,6 +119,22 @@ public final class LocalFileInspector: FileTypeDetecting, @unchecked Sendable {
     }
 
     return nil
+  }
+
+  private static func formatFromFilename(_ filename: String) -> FileFormat {
+    let lowercased = filename.lowercased()
+    let compoundExtensions: [(String, FileFormat)] = [
+      (".tar.gz", .tarGzip),
+      (".tar.bz2", .tarBzip2),
+      (".tar.bz", .tarBzip2),
+      (".tar.xz", .tarXz),
+    ]
+    if let match = compoundExtensions.first(where: { lowercased.hasSuffix($0.0) }) {
+      return match.1
+    }
+    return FileFormat.from(
+      filenameExtension: URL(fileURLWithPath: filename).pathExtension
+    )
   }
 
   private static func ascii(_ bytes: [UInt8], offset: Int, count: Int) -> String {
@@ -157,7 +192,10 @@ public final class LocalFileInspector: FileTypeDetecting, @unchecked Sendable {
     if type.conforms(to: .image) {
       return FileFormat.from(filenameExtension: type.preferredFilenameExtension ?? "")
     }
-    return nil
+    let inferred = FileFormat.from(
+      filenameExtension: type.preferredFilenameExtension ?? ""
+    )
+    return inferred == .unknown ? nil : inferred
   }
 
   private func metadata(

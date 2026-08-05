@@ -32,7 +32,13 @@ Il refuse un tag qui ne correspond pas à `VERSION`.
 | `ASC_KEY_ID` | identifiant de la clé API App Store Connect |
 | `ASC_ISSUER_ID` | issuer de la clé API |
 | `ASC_PRIVATE_KEY` | contenu de la clé privée `.p8` |
-| `HOMEBREW_TAP_TOKEN` | jeton limité en écriture à `naikibro/homebrew-tap` |
+| `HOMEBREW_TAP_TOKEN` | jeton limité en écriture au tap de l’équipe Pacific Knowledge |
+
+Variable de dépôt GitHub :
+
+| Variable | Usage |
+|---|---|
+| `HOMEBREW_TAP_REPOSITORY` | dépôt `organisation/homebrew-tap` détenu par Pacific Knowledge |
 
 Les workflows utilisent des permissions GitHub minimales. Les clés sont
 écrites uniquement dans le répertoire temporaire du runner et son trousseau
@@ -52,12 +58,13 @@ de `StoreMetadata/`.
 
 Le job signe l’app avec Developer ID, active Hardened Runtime, crée et signe le
 DMG, le notarise, agrafe le ticket, publie les sommes SHA-256 dans une GitHub
-Release, puis met à jour `Casks/huri.rb` dans `naikibro/homebrew-tap`.
+Release, puis met à jour `Casks/huri.rb` dans le dépôt défini par
+`HOMEBREW_TAP_REPOSITORY`.
 
 Smoke test :
 
 ```bash
-brew tap naikibro/tap
+brew tap <organisation-pacific-knowledge>/tap
 brew install --cask huri
 open -a Huri
 ```

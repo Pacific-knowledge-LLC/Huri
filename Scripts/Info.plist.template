@@ -30,7 +30,7 @@
     <key>CFBundleGetInfoString</key>
     <string>Huri @VERSION@, © 2026 Pacific Knowledge</string>
     <key>NSHumanReadableCopyright</key>
-    <string>© 2026 Pacific Knowledge. All rights reserved.</string>
+    <string>© 2026 Pacific Knowledge. Logiciel libre sous licence MIT.</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.utilities</string>
     <key>LSMinimumSystemVersion</key>

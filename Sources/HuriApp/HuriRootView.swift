@@ -5,6 +5,7 @@ import SwiftUI
 
 enum HuriDestination: String, Hashable, CaseIterable, Identifiable {
   case convert
+  case formats
   case pdfTools
   case about
 
@@ -13,6 +14,7 @@ enum HuriDestination: String, Hashable, CaseIterable, Identifiable {
   var title: String {
     switch self {
     case .convert: HuriL10n.text("nav.convert")
+    case .formats: HuriL10n.text("nav.formats")
     case .pdfTools: HuriL10n.text("nav.pdfTools")
     case .about: HuriL10n.text("nav.about")
     }
@@ -21,6 +23,7 @@ enum HuriDestination: String, Hashable, CaseIterable, Identifiable {
   var symbol: String {
     switch self {
     case .convert: "arrow.triangle.2.circlepath"
+    case .formats: "square.grid.3x3"
     case .pdfTools: "doc.on.doc"
     case .about: "info.circle"
     }
@@ -131,6 +134,10 @@ struct HuriRootView: View {
     switch destination ?? .convert {
     case .convert:
       ConversionWorkspaceView(model: conversionModel)
+    case .formats:
+      FormatCatalogView(model: conversionModel) {
+        destination = .convert
+      }
     case .pdfTools:
       PDFToolsView(model: pdfModel)
     case .about:
@@ -233,10 +240,6 @@ struct AboutView: View {
           }
           Link(destination: URL(string: "mailto:\(HuriCore.supportEmail)")!) {
             Label(HuriL10n.text("about.contact"), systemImage: "envelope")
-          }
-          Link(destination: HuriCore.githubURL) {
-            Label(
-              HuriL10n.text("about.github"), systemImage: "chevron.left.forwardslash.chevron.right")
           }
         }
         .buttonStyle(.bordered)

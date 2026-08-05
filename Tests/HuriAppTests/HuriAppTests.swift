@@ -64,6 +64,5 @@ final class HuriAppTests: XCTestCase {
     XCTAssertEqual(HuriCore.bundleIdentifier, "dev.pacificknowledge.huri")
     XCTAssertEqual(HuriCore.supportEmail, "admin@pacificknowledge.dev")
     XCTAssertEqual(HuriCore.websiteURL.host(), "pacificknowledge.dev")
-    XCTAssertEqual(HuriCore.githubURL.path(), "/naikibro")
   }
 }

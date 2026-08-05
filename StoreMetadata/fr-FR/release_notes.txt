@@ -1,1 +1,1 @@
-Première version de Huri : conversion locale, atelier PDF et interface française et anglaise.
+Catalogue de 305 formats, moteurs locaux modulaires, conversion par lots optimisée, atelier PDF et interface française et anglaise.

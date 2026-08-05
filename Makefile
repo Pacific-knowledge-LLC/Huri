@@ -1,4 +1,4 @@
-.PHONY: build test run release package dmg localizations format lint security verify app-store clean
+.PHONY: build test run release package dmg downloads localizations format lint security verify app-store clean
 
 build:
 	swift build
@@ -17,6 +17,9 @@ package:
 
 dmg: package
 	bash Scripts/create-dmg.sh
+
+downloads:
+	bash Scripts/package-downloads.sh
 
 localizations:
 	swift Scripts/generate-localizations.swift

@@ -1,7 +1,11 @@
-Huri transforms files directly on your Mac.
+Huri transforms files directly on your Mac and catalogs 305 archive, audio,
+document, e-book, font, image, presentation, vector and video formats.
 
 Convert images, documents, audio and video with settings tailored to each
-format. Use the PDF workshop to merge, reorder, rotate, extract or split pages.
+format. Open-source engines installed on your Mac automatically extend the
+available conversions. Use the PDF workshop to merge, reorder, rotate, extract
+or split pages.
 
 Huri works without an account, telemetry or file uploads. Your content stays
-on your Mac.
+on your Mac, and the catalog clearly separates known formats from conversions
+that are actually available.

@@ -12,6 +12,68 @@ public final class LibreOfficeProvider: @unchecked Sendable {
 
   @discardableResult
   public func convertToPDF(source: URL, destination: URL) throws -> URL {
+    try convertSynchronously(source: source, to: .pdf, destination: destination)
+  }
+
+  @discardableResult
+  public func convert(
+    source: URL,
+    to outputFormat: FileFormat,
+    destination: URL
+  ) async throws -> URL {
+    guard let executableURL else {
+      throw ConversionError.unsupported(
+        HuriL10n.text("error.libreOffice.missing")
+      )
+    }
+    let temporaryDirectory = FileManager.default.temporaryDirectory
+      .appendingPathComponent("huri-libreoffice-\(UUID().uuidString)", isDirectory: true)
+    let outputDirectory = temporaryDirectory.appendingPathComponent("output", isDirectory: true)
+    let profileDirectory = temporaryDirectory.appendingPathComponent("profile", isDirectory: true)
+    try FileManager.default.createDirectory(
+      at: outputDirectory,
+      withIntermediateDirectories: true
+    )
+    try FileManager.default.createDirectory(
+      at: profileDirectory,
+      withIntermediateDirectories: true
+    )
+    defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
+
+    _ = try await ProcessRunner.run(
+      executable: executableURL,
+      arguments: [
+        "-env:UserInstallation=\(profileDirectory.absoluteString)",
+        "--headless",
+        "--nologo",
+        "--nodefault",
+        "--nolockcheck",
+        "--convert-to", outputFormat.preferredExtension,
+        "--outdir", outputDirectory.path,
+        source.path,
+      ]
+    )
+    let generated =
+      outputDirectory
+      .appendingPathComponent(source.deletingPathExtension().lastPathComponent)
+      .appendingPathExtension(outputFormat.preferredExtension)
+    guard let data = try? Data(contentsOf: generated), !data.isEmpty else {
+      throw ConversionError.conversionFailed(
+        HuriL10n.format(
+          "error.libreOffice.noOutput",
+          arguments: source.lastPathComponent
+        )
+      )
+    }
+    try InfrastructureSupport.writeAtomically(data, to: destination)
+    return destination
+  }
+
+  private func convertSynchronously(
+    source: URL,
+    to outputFormat: FileFormat,
+    destination: URL
+  ) throws -> URL {
     guard let executableURL else {
       throw ConversionError.unsupported(
         HuriL10n.text("error.libreOffice.missing")
@@ -40,7 +102,7 @@ public final class LibreOfficeProvider: @unchecked Sendable {
       "--nologo",
       "--nodefault",
       "--nolockcheck",
-      "--convert-to", "pdf",
+      "--convert-to", outputFormat.preferredExtension,
       "--outdir", outputDirectory.path,
       source.path,
     ]
@@ -78,7 +140,7 @@ public final class LibreOfficeProvider: @unchecked Sendable {
     let generated =
       outputDirectory
       .appendingPathComponent(source.deletingPathExtension().lastPathComponent)
-      .appendingPathExtension("pdf")
+      .appendingPathExtension(outputFormat.preferredExtension)
     guard let data = try? Data(contentsOf: generated), !data.isEmpty else {
       throw ConversionError.conversionFailed(
         HuriL10n.format(
@@ -92,15 +154,14 @@ public final class LibreOfficeProvider: @unchecked Sendable {
   }
 
   public static func discoverExecutable() -> URL? {
-    let candidates = [
-      "/Applications/LibreOffice.app/Contents/MacOS/soffice",
-      "/opt/homebrew/bin/soffice",
-      "/usr/local/bin/soffice",
-      "/usr/bin/soffice",
-    ]
-    return
-      candidates
-      .map(URL.init(fileURLWithPath:))
-      .first { FileManager.default.isExecutableFile(atPath: $0.path) }
+    CommandLocator.find(
+      names: ["soffice"],
+      additionalPaths: [
+        "/Applications/LibreOffice.app/Contents/MacOS/soffice",
+        "/opt/homebrew/bin/soffice",
+        "/usr/local/bin/soffice",
+        "/usr/bin/soffice",
+      ]
+    )
   }
 }

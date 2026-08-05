@@ -1,43 +1,56 @@
 # Quality Gate — Huri
 
-## Rapport — 29 juillet 2026
+## Rapport — 30 juillet 2026
 
 | Contrôle | Statut | Résultat |
 |---|---|---|
 | Build Debug | ✅ | Swift 6.2, sans warning |
 | Build Release | ✅ | application macOS assemblée |
-| Tests | ✅ | 19/19 |
+| Tests | ✅ | 29/29 |
+| Catalogue | ✅ | 309 entrées concurrentes normalisées en 305 formats uniques |
+| Capacités runtime | ✅ | 172 formats disponibles et 5 moteurs actifs sur le Mac de QA |
 | Images | ✅ | PNG, JPEG et WebP aller-retour |
+| Médias | ✅ | WAV→MP3 réel avec FFmpeg |
+| Documents | ✅ | Markdown→DOCX réel avec Pandoc |
+| Archives | ✅ | ZIP→TAR réel, liens symboliques refusés avant extraction |
 | PDF | ✅ | fusion, réordre, rotation, split et rendu |
 | Détourage | ✅ | image et chaque page d’un PDF |
 | Détection | ✅ | signature binaire prioritaire sur l’extension |
-| UI native | ✅ | import, conversion réelle et écrans principaux |
+| UI native | ✅ | import, choix explicite, conversion PNG réelle et catalogue filtrable |
 | Accessibilité | ✅ | labels, commandes clavier et états exposés |
 | i18n | ✅ | catalogue FR/EN complet, français de repli |
 | Onboarding | ✅ | trois écrans, reprise depuis À propos, visite de cinq repères |
 | Confidentialité | ✅ | aucune API réseau ou télémétrie dans les sources |
+| Open source | ✅ | licence MIT et notices tierces embarquées dans l’app |
 | Signature locale | ✅ | signature ad hoc valide |
-| Architectures | ✅ | binaire universel arm64 + x86_64 |
-| Taille | ✅ | app 8,4 Mo, DMG 4,1 Mo |
+| Architectures | ✅ | arm64 local ; pipeline de distribution arm64 + x86_64 |
+| DMG | ✅ | checksum HFS/APFS valide, montage lecture seule et app vérifiée |
+| Taille | ✅ | app 5,8 Mo, DMG 3,4 Mo |
 
-**Verdict local : SHIP ✅**
+**Verdict local : SHIP ✅ — publication externe en attente des accès d’équipe**
 
 La build installable et le DMG local sont validés. Les workflows de distribution
 externe sont prêts mais exigent les certificats, le profil App Store et les clés
 de l’organisation Pacific Knowledge.
 
-Preuves visuelles : [conversion en mode sombre](screenshots/conversion-dark.jpg)
-et [cinquième repère de la visite guidée](screenshots/tour-pdf-light.jpg).
+Preuves visuelles : [catalogue en mode clair](screenshots/formats-light.jpg),
+[catalogue en mode sombre](screenshots/formats-dark.jpg),
+[conversion en mode sombre](screenshots/conversion-dark.jpg) et
+[cinquième repère de la visite guidée](screenshots/tour-pdf-light.jpg).
 
 ## Definition of Done
 
 - [x] `swift build` et les builds Release arm64/x86_64 passent sans erreur.
 - [x] `swift test` passe intégralement.
+- [x] Les 305 identifiants concurrents sont uniques et gardent leurs droits lecture/écriture.
 - [x] La matrice ne propose aucun couple incohérent.
+- [x] Un format absent du moteur local est catalogué sans être faussement annoncé disponible.
 - [x] Les fixtures PNG/JPEG/WebP/PDF passent en conversion aller-retour.
+- [x] FFmpeg, Pandoc et les outils d’archives passent une conversion réelle.
 - [x] Fusion, rotation, réordre et découpe PDF conservent les pages attendues.
 - [x] Les fichiers corrompus produisent un message utile sans crash.
 - [x] La source n’est jamais écrasée.
+- [x] Les archives à liens symboliques ou chemins non sûrs sont refusées.
 - [x] Le détourage est proposé seulement pour PNG.
 - [x] Import bouton et glisser-déposer sont accessibles au clavier.
 - [x] Les états vide, chargement, erreur et succès sont visibles.

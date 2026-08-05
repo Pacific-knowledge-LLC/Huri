@@ -25,6 +25,7 @@ enum ConversionUIState {
 final class ConversionViewModel: ObservableObject {
   @Published private(set) var items: [ImportedAsset] = []
   @Published var selectedOutput: FileFormat?
+  @Published var outputSearch = ""
   @Published var quality = 0.88
   @Published var scale = 1.0
   @Published var pdfDPI = 144
@@ -55,6 +56,44 @@ final class ConversionViewModel: ObservableObject {
     )
   }
 
+  var filteredSupportedOutputs: [FileFormat] {
+    let query = outputSearch.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard !query.isEmpty else { return supportedOutputs }
+    return supportedOutputs.filter {
+      $0.displayName.localizedCaseInsensitiveContains(query)
+        || $0.family.displayName.localizedCaseInsensitiveContains(query)
+    }
+  }
+
+  var capabilityContext: CapabilityContext {
+    services.capabilityContext
+  }
+
+  var availableBackends: [ConversionBackend] {
+    services.capabilityContext.availableBackends.sorted {
+      $0.displayName.localizedStandardCompare($1.displayName) == .orderedAscending
+    }
+  }
+
+  var availableFormatCount: Int {
+    availableFormatSet.count
+  }
+
+  var availableFormatSet: Set<FileFormat> {
+    services.capabilities.availableFormats(context: services.capabilityContext)
+  }
+
+  var catalogFormatCount: Int {
+    FormatCatalog.entries.count
+  }
+
+  func outputs(for format: FileFormat) -> [FileFormat] {
+    services.capabilities.outputs(
+      for: format,
+      context: services.capabilityContext
+    )
+  }
+
   var canConvert: Bool {
     !items.isEmpty
       && selectedOutput != nil
@@ -65,6 +104,28 @@ final class ConversionViewModel: ObservableObject {
   var acceptsBackgroundRemoval: Bool {
     selectedOutput == .png
       && items.allSatisfy { [.image, .pdf, .document, .text].contains($0.asset.family) }
+  }
+
+  var showsQualityOption: Bool {
+    guard let selectedOutput, selectedOutput.isLossy else { return false }
+    return [.image, .audio, .video].contains(selectedOutput.family)
+  }
+
+  var showsScaleOption: Bool {
+    guard let selectedOutput else { return false }
+    return [.image, .video].contains(selectedOutput.family)
+  }
+
+  var showsMetadataOption: Bool {
+    guard let selectedOutput else { return false }
+    return [.image, .audio, .video].contains(selectedOutput.family)
+  }
+
+  var showsPDFResolutionOption: Bool {
+    selectedOutput?.family == .image
+      && items.contains {
+        [.pdf, .document, .presentation, .text].contains($0.asset.family)
+      }
   }
 
   func importFiles(_ urls: [URL]) {
@@ -234,10 +295,9 @@ final class ConversionViewModel: ObservableObject {
     if let selectedOutput, outputs.contains(selectedOutput) {
       return
     }
-    selectedOutput = outputs.first
-    if selectedOutput != .png {
-      removeBackground = false
-    }
+    selectedOutput = nil
+    outputSearch = ""
+    removeBackground = false
   }
 }
 

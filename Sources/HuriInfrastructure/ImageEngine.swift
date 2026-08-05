@@ -55,7 +55,7 @@ public struct ImageEngine: Sendable {
   }
 
   func loadImage(from url: URL, scale: Double = 1) throws -> CGImage {
-    if FileFormat.from(filenameExtension: url.pathExtension) == .webp {
+    if isWebP(url) {
       do {
         var decoderOptions = WebPDecoderOptions()
         decoderOptions.useThreads = true
@@ -74,11 +74,30 @@ public struct ImageEngine: Sendable {
       }
     }
 
-    guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
-      let image = CGImageSourceCreateImageAtIndex(
+    guard let source = CGImageSourceCreateWithURL(url as CFURL, nil)
+    else {
+      throw ConversionError.unreadable(
+        HuriL10n.format(
+          "error.image.decode",
+          arguments: url.lastPathComponent
+        )
+      )
+    }
+    let properties =
+      CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any]
+    let width = (properties?[kCGImagePropertyPixelWidth] as? NSNumber)?.intValue ?? 1
+    let height = (properties?[kCGImagePropertyPixelHeight] as? NSNumber)?.intValue ?? 1
+    let thumbnailOptions: [CFString: Any] = [
+      kCGImageSourceCreateThumbnailFromImageAlways: true,
+      kCGImageSourceCreateThumbnailWithTransform: true,
+      kCGImageSourceThumbnailMaxPixelSize: max(width, height),
+      kCGImageSourceShouldCacheImmediately: true,
+    ]
+    guard
+      let orientedImage = CGImageSourceCreateThumbnailAtIndex(
         source,
         0,
-        [kCGImageSourceShouldCache: false] as CFDictionary
+        thumbnailOptions as CFDictionary
       )
     else {
       throw ConversionError.unreadable(
@@ -88,7 +107,7 @@ public struct ImageEngine: Sendable {
         )
       )
     }
-    return try scaledImage(image, scale: scale)
+    return try scaledImage(orientedImage, scale: scale)
   }
 
   func write(
@@ -105,9 +124,11 @@ public struct ImageEngine: Sendable {
       )
     }
 
+    let outputImage = try flattenedIfNeeded(image, for: format)
+
     if format == .webp {
       do {
-        let rgbaImage = try normalizedRGBAImage(image)
+        let rgbaImage = try normalizedRGBAImage(outputImage)
         var config = WebPEncoderConfig.preset(
           .picture,
           quality: Float(InfrastructureSupport.clampedQuality(quality) * 100)
@@ -165,7 +186,7 @@ public struct ImageEngine: Sendable {
       properties[kCGImageDestinationLossyCompressionQuality] =
         InfrastructureSupport.clampedQuality(quality)
     }
-    CGImageDestinationAddImage(imageDestination, image, properties as CFDictionary)
+    CGImageDestinationAddImage(imageDestination, outputImage, properties as CFDictionary)
     guard CGImageDestinationFinalize(imageDestination) else {
       throw ConversionError.conversionFailed(
         HuriL10n.format(
@@ -238,5 +259,43 @@ public struct ImageEngine: Sendable {
       throw ConversionError.conversionFailed(HuriL10n.text("error.image.prepareWebP"))
     }
     return result
+  }
+
+  private func flattenedIfNeeded(_ image: CGImage, for format: FileFormat) throws -> CGImage {
+    guard !format.supportsTransparency, image.alphaInfo != .none, image.alphaInfo != .noneSkipFirst,
+      image.alphaInfo != .noneSkipLast
+    else {
+      return image
+    }
+    guard
+      let context = CGContext(
+        data: nil,
+        width: image.width,
+        height: image.height,
+        bitsPerComponent: 8,
+        bytesPerRow: 0,
+        space: CGColorSpaceCreateDeviceRGB(),
+        bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
+      )
+    else {
+      throw ConversionError.conversionFailed(HuriL10n.text("error.image.resizeMemory"))
+    }
+    context.setFillColor(CGColor(gray: 1, alpha: 1))
+    context.fill(CGRect(x: 0, y: 0, width: image.width, height: image.height))
+    context.draw(image, in: CGRect(x: 0, y: 0, width: image.width, height: image.height))
+    guard let flattened = context.makeImage() else {
+      throw ConversionError.conversionFailed(HuriL10n.text("error.image.resize"))
+    }
+    return flattened
+  }
+
+  private func isWebP(_ url: URL) -> Bool {
+    guard let handle = try? FileHandle(forReadingFrom: url) else { return false }
+    defer { try? handle.close() }
+    guard let data = try? handle.read(upToCount: 12), data.count >= 12 else {
+      return false
+    }
+    return data.prefix(4) == Data("RIFF".utf8)
+      && data.suffix(4) == Data("WEBP".utf8)
   }
 }

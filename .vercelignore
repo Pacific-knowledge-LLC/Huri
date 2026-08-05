@@ -1,0 +1,12 @@
+.build
+.swiftpm
+dist
+Tests
+Sources
+Scripts
+Config
+Casks
+StoreMetadata
+docs/*.md
+.github
+.git

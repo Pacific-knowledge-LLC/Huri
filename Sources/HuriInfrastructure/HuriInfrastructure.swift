@@ -16,28 +16,35 @@ public struct HuriServices: Sendable {
   public let preview: QuickLookPreviewService
   public let capabilities: CapabilityRegistry
   public let capabilityContext: CapabilityContext
+  public let toolchain: LocalToolchain
 
   public init() {
     let imageEngine = ImageEngine()
     let inspector = LocalFileInspector()
     let pdfEngine = PDFEngine(imageEngine: imageEngine)
     let backgroundRemovalEngine = BackgroundRemovalEngine(imageEngine: imageEngine)
-    let documentProvider = LibreOfficeProvider()
+    let toolchain = LocalToolchain()
+    let documentProvider = LibreOfficeProvider(
+      executableURL: toolchain.executable(for: .libreOffice)
+    )
 
     self.inspector = inspector
     self.pdfEditor = pdfEngine
     self.preview = QuickLookPreviewService()
     self.capabilities = CapabilityRegistry()
+    self.toolchain = toolchain
     self.capabilityContext = CapabilityContext(
       wordConversionAvailable: documentProvider.isAvailable,
-      enabledImageOutputs: ImageEngine.supportedOutputFormats
+      enabledImageOutputs: ImageEngine.supportedOutputFormats,
+      availableBackends: toolchain.availableBackends
     )
     self.converter = LocalConversionCoordinator(
       inspector: inspector,
       imageEngine: imageEngine,
       backgroundRemovalEngine: backgroundRemovalEngine,
       pdfEngine: pdfEngine,
-      documentProvider: documentProvider
+      documentProvider: documentProvider,
+      toolchain: toolchain
     )
   }
 }
