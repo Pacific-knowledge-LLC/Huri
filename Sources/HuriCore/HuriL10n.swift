@@ -1,6 +1,32 @@
 import Foundation
 
 public enum HuriL10n {
+  private static let resourceBundle: Bundle = {
+    let bundleName = "Huri_HuriCore.bundle"
+    let candidates = [
+      Bundle.main.resourceURL?.appendingPathComponent(bundleName, isDirectory: true),
+      Bundle.main.bundleURL.appendingPathComponent(bundleName, isDirectory: true),
+      Bundle.main.bundleURL.deletingLastPathComponent()
+        .appendingPathComponent(bundleName, isDirectory: true),
+      Bundle.main.executableURL?.deletingLastPathComponent()
+        .appendingPathComponent(bundleName, isDirectory: true),
+    ]
+
+    for case let candidate? in candidates {
+      if let bundle = Bundle(url: candidate) {
+        return bundle
+      }
+    }
+
+    #if DEBUG
+      return Bundle.module
+    #else
+      // A missing resource must never terminate a distributed application.
+      // String(localized:) will return the key when the table is unavailable.
+      return Bundle.main
+    #endif
+  }()
+
   public static func text(_ key: String, locale: Locale? = nil) -> String {
     if let locale {
       let requestedLocalization =
@@ -13,7 +39,7 @@ public enum HuriL10n {
         ["fr", "en"].contains(requestedLocalization)
         ? requestedLocalization
         : "fr"
-      if let path = Bundle.module.path(
+      if let path = resourceBundle.path(
         forResource: "Localizable",
         ofType: "strings",
         inDirectory: nil,
@@ -26,7 +52,7 @@ public enum HuriL10n {
       }
     }
     let value = String.LocalizationValue(key)
-    return String(localized: value, table: "Localizable", bundle: .module)
+    return String(localized: value, table: "Localizable", bundle: resourceBundle)
   }
 
   public static func format(

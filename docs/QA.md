@@ -22,16 +22,17 @@
 | Onboarding | ✅ | trois écrans, reprise depuis À propos, visite de cinq repères |
 | Confidentialité | ✅ | aucune API réseau ou télémétrie dans les sources |
 | Open source | ✅ | licence MIT et notices tierces embarquées dans l’app |
-| Signature locale | ✅ | signature ad hoc valide |
-| Architectures | ✅ | arm64 local ; pipeline de distribution arm64 + x86_64 |
+| Signature locale | ✅ | signature ad hoc acceptée uniquement pour le développement |
+| Ressources packagées | ✅ | smoke test isolé du dossier `.build` |
+| Architectures | ✅ | pipeline de distribution universel arm64 + x86_64 |
 | DMG | ✅ | checksum HFS/APFS valide, montage lecture seule et app vérifiée |
 | Taille | ✅ | app 5,8 Mo, DMG 3,4 Mo |
 
-**Verdict local : SHIP ✅ — publication externe en attente des accès d’équipe**
+**Verdict local : QA ✅ — publication externe interdite sans Developer ID et notarisation**
 
-La build installable et le DMG local sont validés. Les workflows de distribution
-externe sont prêts mais exigent les certificats, le profil App Store et les clés
-de l’organisation Pacific Knowledge.
+La build locale est validée pour le développement. Seul le workflow `Release`,
+avec certificat Developer ID, Hardened Runtime, notarisation, agrafage et smoke
+test isolé, peut produire un téléchargement public.
 
 Preuves visuelles : [catalogue en mode clair](screenshots/formats-light.jpg),
 [catalogue en mode sombre](screenshots/formats-dark.jpg),

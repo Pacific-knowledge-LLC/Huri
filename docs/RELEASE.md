@@ -12,12 +12,14 @@ quality gate.
 4. Fusionner sur `main`, attendre une CI verte, puis créer un tag signé.
 
 ```bash
-git tag -s v1.0.0 -m "Huri 1.0.0"
-git push origin v1.0.0
+git tag -s v1.0.1 -m "Huri 1.0.1"
+git push production v1.0.1
 ```
 
 Le workflow `Release` peut aussi être relancé manuellement sur un tag existant.
-Il refuse un tag qui ne correspond pas à `VERSION`.
+Il refuse un tag qui ne correspond pas à `VERSION`. Le site ne sert aucun DMG
+committé : ses CTA pointent vers `Huri-macos-universal.dmg` dans la dernière
+GitHub Release validée.
 
 ## Secrets GitHub
 
@@ -56,9 +58,11 @@ de `StoreMetadata/`.
 
 ### Homebrew
 
-Le job signe l’app avec Developer ID, active Hardened Runtime, crée et signe le
-DMG, le notarise, agrafe le ticket, publie les sommes SHA-256 dans une GitHub
-Release, puis met à jour `Casks/huri.rb` dans le dépôt défini par
+Le job construit un binaire universel arm64 + x86_64, crée les dSYM, signe l’app
+avec Developer ID, active Hardened Runtime, crée et signe le DMG, le notarise,
+agrafe le ticket et publie les sommes SHA-256 dans une GitHub Release. La
+publication GitHub reste indépendante du tap Homebrew : si celui-ci est
+configuré, `Casks/huri.rb` est ensuite mis à jour dans le dépôt défini par
 `HOMEBREW_TAP_REPOSITORY`.
 
 Smoke test :

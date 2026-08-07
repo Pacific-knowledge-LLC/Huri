@@ -114,7 +114,3 @@ if (reduceMotion || !("IntersectionObserver" in window)) {
 }
 
 document.querySelector("[data-year]").textContent = new Date().getFullYear();
-
-if (/Mac/.test(navigator.platform)) {
-  document.querySelector("[data-architecture-note]").textContent = "macOS 14+ · choisissez la puce de votre Mac";
-}

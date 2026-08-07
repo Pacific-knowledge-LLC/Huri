@@ -7,3 +7,4 @@
 *.xcworkspace/xcuserdata/
 *.xcuserstate
 .vercel
+/downloads/

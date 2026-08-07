@@ -3,6 +3,7 @@ set -euo pipefail
 
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 app_dir="$project_root/dist/Huri.app"
+dsym_path="$project_root/dist/Huri.dSYM"
 contents_dir="$app_dir/Contents"
 iconset_dir="$project_root/.build/Huri.iconset"
 version="${VERSION:-$(tr -d '[:space:]' < "$project_root/VERSION")}"
@@ -85,6 +86,9 @@ sed \
 
 chmod +x "$contents_dir/MacOS/Huri"
 
+rm -rf "$dsym_path"
+dsymutil "$contents_dir/MacOS/Huri" -o "$dsym_path"
+
 if [[ "$signing_identity" == "-" ]]; then
   codesign --force --sign - "$app_dir"
 else
@@ -103,3 +107,4 @@ fi
 
 codesign --verify --deep --strict --verbose=2 "$app_dir"
 echo "Application created: $app_dir ($version build $build_number, $distribution)"
+echo "Debug symbols created: $dsym_path"

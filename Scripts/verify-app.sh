@@ -42,11 +42,23 @@ if [[ -n "${REQUIRED_ARCHS:-}" ]]; then
   done
 fi
 
-signature_details="$(codesign -dv "$app_path" 2>&1)"
+signature_details="$(codesign -dv --verbose=4 "$app_path" 2>&1)"
 if grep -q 'Signature=adhoc' <<< "$signature_details"; then
+  if [[ "${REQUIRE_DEVELOPER_ID:-0}" == "1" ]]; then
+    fail "ad-hoc signature is forbidden for a distribution build"
+  fi
   echo "Gatekeeper assessment skipped for the local ad-hoc build."
 else
-  spctl --assess --type execute --verbose=2 "$app_path"
+  if [[ "${REQUIRE_DEVELOPER_ID:-0}" == "1" ]]; then
+    grep -q '^Authority=Developer ID Application:' <<< "$signature_details" \
+      || fail "missing Developer ID Application signature"
+    grep -Eq '^TeamIdentifier=.+$' <<< "$signature_details" \
+      || fail "missing Apple TeamIdentifier"
+    grep -q 'runtime' <<< "$signature_details" \
+      || fail "Hardened Runtime is not enabled"
+  fi
 fi
+
+bash "$project_root/Scripts/smoke-packaged-app.sh" "$app_path"
 
 echo "Verified Huri $version ($bundle_id): executable, icon, FR/EN resources and signature are valid."
