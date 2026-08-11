@@ -1,1 +1,1 @@
-305-format catalog, modular local engines, optimized batch conversion, PDF tools and a French and English interface.
+Fixes a first-launch crash on other Macs. Adds a universal Apple Silicon and Intel distribution with strict resource checks, Developer ID signing, and Apple notarization.

@@ -1,8 +1,25 @@
+import Darwin
 import HuriCore
 import SwiftUI
 
 @main
 struct HuriApplication: App {
+  init() {
+    guard ProcessInfo.processInfo.arguments.contains("--verify-packaged-resources") else {
+      return
+    }
+
+    let french = HuriL10n.text("brand.tagline", locale: Locale(identifier: "fr"))
+    let english = HuriL10n.text("brand.tagline", locale: Locale(identifier: "en"))
+    print("fr=\(french)")
+    print("en=\(english)")
+    exit(
+      french == "Vos fichiers, transformés." && english == "Your files, transformed."
+        ? EXIT_SUCCESS
+        : EX_CONFIG
+    )
+  }
+
   private var qualityAssuranceColorScheme: ColorScheme? {
     let arguments = ProcessInfo.processInfo.arguments
     if arguments.contains("--qa-dark-mode") {

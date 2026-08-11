@@ -1,1 +1,1 @@
-Catalogue de 305 formats, moteurs locaux modulaires, conversion par lots optimisée, atelier PDF et interface française et anglaise.
+Correction d’un crash au premier lancement sur les autres Mac. Distribution universelle Apple Silicon et Intel, avec vérification stricte des ressources, signature Developer ID et notarisation Apple.

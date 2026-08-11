@@ -9,21 +9,20 @@ depuis le même déploiement Vercel.
 - Production : <https://huri-jet.vercel.app>
 - Branche de production : `main`
 - Hébergeur : Vercel
-- Artefacts :
-  - `downloads/Huri-1.0.0-macos-arm64.dmg`
-  - `downloads/Huri-1.0.0-macos-x86_64.dmg`
+- Artefact :
+  - `https://github.com/Pacific-knowledge-LLC/Huri/releases/latest/download/Huri-macos-universal.dmg`
 
 ## Préflight
 
 ```bash
 git diff --check
 make verify
-make downloads
 npx html-validate@latest index.html
 node --check app.js
-hdiutil verify downloads/Huri-1.0.0-macos-arm64.dmg
-hdiutil verify downloads/Huri-1.0.0-macos-x86_64.dmg
 ```
+
+`make downloads` est réservé au runner de release disposant du certificat
+Developer ID et des credentials de notarisation. Il refuse tout build ad hoc.
 
 Vérifier ensuite que le dépôt de travail est propre et que le commit à publier
 est présent sur `main` du dépôt Pacific Knowledge.
@@ -44,16 +43,14 @@ Après le déploiement :
 1. Ouvrir la page de production sur desktop et mobile.
 2. Tester la démo interactive et la recherche de conversions.
 3. Vérifier les en-têtes HTTP de sécurité.
-4. Télécharger les DMG Apple Silicon et Intel, puis comparer leur somme SHA-256.
+4. Télécharger le DMG universel depuis GitHub Releases, vérifier sa somme
+   SHA-256, `stapler`, Gatekeeper et les architectures arm64 + x86_64.
 5. Exécuter Lighthouse et conserver comme seuils : performance ≥ 95,
    accessibilité = 100 et SEO = 100.
 
-Sommes SHA-256 de la version 1.0.0 :
-
-```text
-4c581789c6924249cd8e102644165137a8fd39f43c35a1aee2ab2e4df2dcbb05  Huri-1.0.0-macos-arm64.dmg
-98d5ff31188b782ee5441e0b6dd7a149f8e4c639471d81063bd6dbf2d2cfca2e  Huri-1.0.0-macos-x86_64.dmg
-```
+La somme attendue est publiée avec chaque GitHub Release sous
+`Huri-macos-universal.dmg.sha256` et ne doit jamais être réutilisée pour une
+nouvelle version.
 
 ## Rollback
 

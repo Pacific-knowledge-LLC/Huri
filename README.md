@@ -86,12 +86,17 @@ sans framework, backend, analytics ou ressource distante. Pour la prévisualiser
 python3 -m http.server 4173
 ```
 
-Les deux installateurs macOS référencés par le site sont générés et vérifiés
-avec :
+L’installateur universel Apple Silicon + Intel référencé par le site est une
+GitHub Release signée Developer ID, notarisée et agrafée par Apple. Sa création
+exige les credentials de distribution :
 
 ```bash
 make downloads
 ```
+
+Cette commande échoue volontairement si `SIGNING_IDENTITY` ou les credentials
+de notarisation ne sont pas configurés. Un build local ad hoc ne doit jamais
+être servi comme téléchargement public.
 
 La configuration de production se trouve dans `vercel.json`. Les étapes de
 déploiement, validation et rollback sont détaillées dans

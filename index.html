@@ -18,7 +18,7 @@
       content="305 formats catalogués. Zéro upload. Une app macOS gratuite et open source."
     >
     <meta property="og:image" content="https://huri-jet.vercel.app/Assets/HuriWebIcon.png">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <title>Huri — Convertisseur de fichiers local pour macOS</title>
     <link rel="icon" href="/Assets/HuriWebIcon.png">
     <script>document.documentElement.classList.add("js")</script>
@@ -29,11 +29,11 @@
         "@type": "SoftwareApplication",
         "name": "Huri",
         "url": "https://huri-jet.vercel.app/",
-        "downloadUrl": "https://huri-jet.vercel.app/downloads/Huri-1.0.0-macos-arm64.dmg",
+        "downloadUrl": "https://github.com/Pacific-knowledge-LLC/Huri/releases/latest/download/Huri-macos-universal.dmg",
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "macOS 14+",
         "description": "Convertisseur de fichiers local, gratuit et open source pour macOS.",
-        "softwareVersion": "1.0.0",
+        "softwareVersion": "1.0.1",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
         "author": { "@type": "Organization", "name": "Pacific Knowledge", "url": "https://pacificknowledge.dev" }
       }
@@ -79,7 +79,7 @@
           <div class="hero-actions" role="group" aria-label="Téléchargements macOS">
             <a
               class="button button-primary"
-              href="/downloads/Huri-1.0.0-macos-arm64.dmg"
+              href="https://github.com/Pacific-knowledge-LLC/Huri/releases/latest/download/Huri-macos-universal.dmg"
               data-download="arm64"
             >
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17.1 12.5c0-2.7 2.2-4 2.3-4.1-1.3-1.9-3.3-2.1-4-2.1-1.7-.2-3.3 1-4.1 1-.8 0-2.1-1-3.5-.9-1.8 0-3.5 1.1-4.4 2.7-1.9 3.2-.5 8 1.3 10.6.9 1.3 2 2.8 3.4 2.7 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.2.9 3.6.9 1.5 0 2.5-1.3 3.4-2.6 1-1.5 1.5-3 1.5-3.1-.1 0-3.1-1.2-3.1-4.2ZM14.3 4.5c.8-1 1.3-2.3 1.2-3.5-1.2.1-2.6.8-3.4 1.8-.7.8-1.4 2.2-1.2 3.4 1.3.1 2.6-.7 3.4-1.7Z"/></svg>
@@ -87,13 +87,13 @@
             </a>
             <a
               class="button button-secondary"
-              href="/downloads/Huri-1.0.0-macos-x86_64.dmg"
+              href="https://github.com/Pacific-knowledge-LLC/Huri/releases/latest/download/Huri-macos-universal.dmg"
               data-download="intel"
             >
               Version Intel <span aria-hidden="true">↗</span>
             </a>
           </div>
-          <p class="compatibility"><span data-architecture-note>macOS 14+ · version 1.0.0</span> · 100 % gratuit</p>
+          <p class="compatibility"><span>macOS 14+ · Apple Silicon et Intel · version 1.0.1</span> · 100 % gratuit</p>
           <div class="hero-trust" role="group" aria-label="Garanties Huri">
             <span><strong>305</strong> formats</span>
             <span><strong>0</strong> upload</span>
@@ -139,7 +139,7 @@
                   <button type="button" class="format-choice" data-format="HEIC">HEIC</button>
                 </div>
                 <div class="demo-footer">
-                  <span data-demo-status><i></i> Prêt à convertir</span>
+                  <span role="status" aria-live="polite" data-demo-status><i></i> Prêt à convertir</span>
                   <button type="button" class="demo-convert" data-demo-convert>Convertir maintenant</button>
                 </div>
               </div>
@@ -242,7 +242,7 @@
               <div class="format-count"><strong data-visible-count>305</strong><span>formats catalogués</span></div>
             </div>
             <div class="family-tabs" role="tablist" aria-label="Familles de formats" data-family-tabs></div>
-            <div class="format-results" aria-live="polite" data-format-results></div>
+            <div class="format-results" id="format-results" role="tabpanel" aria-live="polite" tabindex="0" data-format-results></div>
           </div>
         </div>
       </section>
@@ -292,11 +292,11 @@
         </div>
         <div class="faq-list reveal">
           <details open><summary>Huri est-il vraiment gratuit ?<span>+</span></summary><p>Oui. Huri est gratuit, sans abonnement, quota, publicité ou compte obligatoire. Son code est publié sous licence MIT.</p></details>
-          <details><summary>Quelle version dois-je télécharger ?<span>+</span></summary><p>Choisissez Apple Silicon pour les Mac équipés d’une puce M1, M2, M3, M4 ou plus récente. La version Intel concerne les anciens Mac à processeur x86_64.</p></details>
+          <details><summary>Quelle version dois-je télécharger ?<span>+</span></summary><p>Depuis Huri 1.0.1, un seul installateur universel contient les versions Apple Silicon et Intel. Les deux boutons téléchargent ce même DMG compatible avec les deux architectures.</p></details>
           <details><summary>Mes fichiers quittent-ils mon Mac ?<span>+</span></summary><p>Non. L’application n’intègre ni backend, ni télémétrie, ni SDK publicitaire. Les conversions sont exécutées localement.</p></details>
           <details><summary>Pourquoi certains formats demandent-ils un moteur ?<span>+</span></summary><p>Huri reste léger. Les formats spécialisés utilisent des outils open source installés localement comme FFmpeg, LibreOffice ou Pandoc. L’écran Formats indique clairement leur disponibilité.</p></details>
           <details><summary>Quels outils PDF sont inclus ?<span>+</span></summary><p>Fusion, réorganisation, rotation, suppression, extraction, découpe et conversion de pages vers des images.</p></details>
-          <details><summary>Que faire si macOS affiche un avertissement ?<span>+</span></summary><p>La version communautaire peut utiliser une signature locale. Ouvrez Réglages Système → Confidentialité et sécurité, vérifiez que le fichier vient bien de ce site, puis autorisez son ouverture.</p></details>
+          <details><summary>Huri est-il vérifié par Apple ?<span>+</span></summary><p>Oui. Les versions publiques sont signées avec Developer ID, utilisent le Hardened Runtime, puis sont notarisées et agrafées par Apple avant publication. Ne contournez jamais Gatekeeper pour une copie obtenue ailleurs.</p></details>
         </div>
       </section>
 
@@ -306,22 +306,22 @@
           <img class="download-icon" src="/Assets/HuriWebIcon.webp" alt="Icône Huri" width="112" height="112" loading="lazy">
           <p class="section-kicker">Prêt à transformer ?</p>
           <h2>Vos fichiers méritent<br><em>de rester chez vous.</em></h2>
-          <p>Téléchargez Huri gratuitement. Choisissez votre puce, glissez vos fichiers et convertissez.</p>
+          <p>Téléchargez l’installateur universel, glissez Huri dans Applications et convertissez.</p>
           <div class="download-cards">
-            <a href="/downloads/Huri-1.0.0-macos-arm64.dmg" class="download-card recommended" data-download="arm64">
+            <a href="https://github.com/Pacific-knowledge-LLC/Huri/releases/latest/download/Huri-macos-universal.dmg" class="download-card recommended" data-download="arm64">
               <span class="card-label">Recommandé</span>
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17.1 12.5c0-2.7 2.2-4 2.3-4.1-1.3-1.9-3.3-2.1-4-2.1-1.7-.2-3.3 1-4.1 1-.8 0-2.1-1-3.5-.9-1.8 0-3.5 1.1-4.4 2.7-1.9 3.2-.5 8 1.3 10.6.9 1.3 2 2.8 3.4 2.7 1.4-.1 1.9-.9 3.6-.9 1.7 0 2.2.9 3.6.9 1.5 0 2.5-1.3 3.4-2.6 1-1.5 1.5-3 1.5-3.1-.1 0-3.1-1.2-3.1-4.2ZM14.3 4.5c.8-1 1.3-2.3 1.2-3.5-1.2.1-2.6.8-3.4 1.8-.7.8-1.4 2.2-1.2 3.4 1.3.1 2.6-.7 3.4-1.7Z"/></svg>
-              <span><strong>Apple Silicon</strong><small>M1, M2, M3, M4 et versions suivantes · ~4 Mo</small></span>
+              <span><strong>Apple Silicon</strong><small>M1, M2, M3, M4 et versions suivantes · DMG universel</small></span>
               <b>↓</b>
             </a>
-            <a href="/downloads/Huri-1.0.0-macos-x86_64.dmg" class="download-card" data-download="intel">
+            <a href="https://github.com/Pacific-knowledge-LLC/Huri/releases/latest/download/Huri-macos-universal.dmg" class="download-card" data-download="intel">
               <span class="card-label">Anciens Mac</span>
               <span class="intel-mark">IN</span>
-              <span><strong>Intel</strong><small>Processeurs x86_64 · ~4 Mo</small></span>
+              <span><strong>Intel</strong><small>Processeurs x86_64 · même DMG universel</small></span>
               <b>↓</b>
             </a>
           </div>
-          <p class="download-meta">Huri 1.0.0 · macOS 14 Sonoma ou version ultérieure · licence MIT</p>
+          <p class="download-meta">Huri 1.0.1 · macOS 14 Sonoma ou version ultérieure · signé et notarisé par Apple · licence MIT</p>
         </div>
       </section>
     </main>
