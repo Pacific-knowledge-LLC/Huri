@@ -102,6 +102,18 @@ La configuration de production se trouve dans `vercel.json`. Les étapes de
 déploiement, validation et rollback sont détaillées dans
 [docs/WEB_RELEASE.md](docs/WEB_RELEASE.md).
 
+### Documentation Docusaurus
+
+La documentation fonctionnelle, technique et opérationnelle vit dans
+`docs/docs/`. Elle couvre notamment la release, les secrets, Proton Pass et les
+preuves Gatekeeper.
+
+```bash
+cd docs
+npm run start
+npm run build
+```
+
 ## Créer l’application
 
 ```bash
@@ -136,9 +148,13 @@ compilée n’effectue aucun appel réseau.
 
 ## Langues
 
-L’interface suit automatiquement la langue de macOS. Le français et l’anglais
-sont pris en charge, avec le français comme langue de repli. Le catalogue
-`Localizable.xcstrings` est la source de vérité ; exécutez
+Au premier lancement, Huri lit la langue principale de macOS. Un Mac configuré
+en français démarre en français ; les autres configurations démarrent en
+anglais. Le sélecteur **Langue / Language** de la barre latérale et le menu
+macOS permettent ensuite de basculer à tout moment entre **Français** et
+**English**. Le choix est persisté pour les lancements suivants.
+
+Le catalogue `Localizable.xcstrings` reste la source de vérité ; exécutez
 `make localizations` après toute modification.
 
 ## Marque et contact

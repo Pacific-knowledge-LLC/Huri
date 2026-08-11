@@ -123,7 +123,7 @@ La fusion, la sélection et le découpage créent de nouveaux fichiers. Aucun ap
 
 ## Persistance locale
 
-Une seule préférence survit au redémarrage : la version d’accueil terminée. [`HuriRootView`](https://github.com/Pacific-knowledge-LLC/Huri/blob/main/Sources/HuriApp/HuriRootView.swift#L33-L37) la stocke avec `@AppStorage` sous la clé déclarée dans [`HuriOnboarding`](https://github.com/Pacific-knowledge-LLC/Huri/blob/main/Sources/HuriApp/OnboardingView.swift#L4-L11).
+Deux préférences survivent au redémarrage. [`HuriRootView`](https://github.com/Pacific-knowledge-LLC/Huri/blob/main/Sources/HuriApp/HuriRootView.swift) les stocke avec `@AppStorage`. [`HuriOnboarding`](https://github.com/Pacific-knowledge-LLC/Huri/blob/main/Sources/HuriApp/OnboardingView.swift) déclare la version d’accueil terminée. [`HuriLanguage`](https://github.com/Pacific-knowledge-LLC/Huri/blob/main/Sources/HuriCore/HuriLanguage.swift) déclare la langue choisie et installe la préférence macOS au premier lancement.
 
 | Donnée | Stockage | Durée | Sortie réseau |
 |---|---|---|---|
@@ -133,5 +133,6 @@ Une seule préférence survit au redémarrage : la version d’accueil terminée
 | Fichiers temporaires | Répertoire temporaire macOS | Durée d’une opération | Aucune |
 | Résultats | Répertoire choisi par l’utilisateur | Jusqu’à suppression par l’utilisateur | Aucune |
 | Accueil terminé | `UserDefaults` via `@AppStorage` | Entre les sessions | Aucune |
+| Langue de l’interface | `UserDefaults` via `@AppStorage` | Entre les sessions | Aucune |
 
 Il n’existe ni compte, ni jeton utilisateur, ni table, ni cache distant. Une évolution qui introduit un stockage persistant doit définir son schéma, sa migration, sa rétention et sa suppression. Ce chantier n’existe pas aujourd’hui.
