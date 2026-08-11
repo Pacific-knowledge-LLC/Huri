@@ -9,10 +9,10 @@ quality gate.
 1. Mettre `VERSION`, les notes de version FR/EN et les métadonnées Store à jour.
 2. Exécuter `make clean verify dmg`.
 3. Tester `dist/Huri.app` en français et en anglais, en modes clair et sombre.
-4. Fusionner sur `main`, attendre une CI verte, puis créer un tag signé.
+4. Fusionner sur `main`, attendre une CI verte, puis créer un tag annoté.
 
 ```bash
-git tag -s v1.0.1 -m "Huri 1.0.1"
+git tag -a v1.0.1 -m "Huri 1.0.1"
 git push production v1.0.1
 ```
 
@@ -49,6 +49,12 @@ Les workflows utilisent des permissions GitHub minimales. Les clés sont
 ## Canaux
 
 ### Mac App Store
+
+La publication Mac App Store est optionnelle et n'est jamais lancée lors d'un
+simple push de tag. Elle doit être demandée explicitement depuis
+`workflow_dispatch` avec l'option `publish_app_store`. La distribution publique
+du site et de GitHub Releases utilise Developer ID et la notarisation Apple,
+sans dépendre des secrets ni du provisioning Mac App Store.
 
 Le job assemble l’app sandboxée avec
 `Config/Huri.AppStore.entitlements`, crée un paquet signé puis l’envoie à App

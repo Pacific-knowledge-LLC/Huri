@@ -57,6 +57,9 @@ else
     grep -q 'runtime' <<< "$signature_details" \
       || fail "Hardened Runtime is not enabled"
   fi
+  if [[ "${REQUIRE_GATEKEEPER:-0}" == "1" ]]; then
+    spctl --assess --type execute --verbose=2 "$app_path"
+  fi
 fi
 
 bash "$project_root/Scripts/smoke-packaged-app.sh" "$app_path"

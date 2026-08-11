@@ -35,11 +35,15 @@ xcrun notarytool submit "$dmg_path" \
 
 submission_id="$(plutil -extract id raw -o - "$submission_json")"
 status="$(plutil -extract status raw -o - "$submission_json")"
-xcrun notarytool log "$submission_id" "${credential_args[@]}" > "$notary_log"
 
 if [[ "$status" != "Accepted" ]]; then
+  xcrun notarytool log "$submission_id" "${credential_args[@]}" > "$notary_log" || true
   echo "Apple notarization failed with status: $status" >&2
-  cat "$notary_log" >&2
+  status_summary="$(plutil -extract statusSummary raw -o - "$notary_log" 2>/dev/null || true)"
+  if [[ -n "$status_summary" ]]; then
+    echo "Apple summary: $status_summary" >&2
+  fi
+  echo "Submission ID: $submission_id. Inspect the private Apple log outside public CI output." >&2
   exit 1
 fi
 

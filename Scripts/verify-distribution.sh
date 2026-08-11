@@ -6,9 +6,7 @@ dmg_path="${1:-$project_root/dist/Huri.dmg}"
 mount_root="$(mktemp -d)"
 
 cleanup() {
-  if mount | grep -Fq " on $mount_root "; then
-    hdiutil detach "$mount_root" >/dev/null || true
-  fi
+  hdiutil detach "$mount_root" >/dev/null 2>&1 || true
   rm -rf "$mount_root"
 }
 trap cleanup EXIT INT TERM
@@ -29,6 +27,7 @@ app_path="$mount_root/Huri.app"
 [[ -d "$app_path" ]] || fail "Huri.app is missing from the DMG"
 
 REQUIRE_DEVELOPER_ID=1 \
+REQUIRE_GATEKEEPER=1 \
 REQUIRED_ARCHS="${REQUIRED_ARCHS:-arm64 x86_64}" \
   bash "$project_root/Scripts/verify-app.sh" "$app_path"
 

@@ -8,3 +8,12 @@
 *.xcuserstate
 .vercel
 /downloads/
+*.cer
+*.key
+*.p8
+*.p12
+*.pem
+*.provisionprofile
+*.mobileprovision
+.env
+.env.*

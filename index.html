@@ -18,7 +18,7 @@
       content="305 formats catalogués. Zéro upload. Une app macOS gratuite et open source."
     >
     <meta property="og:image" content="https://huri-jet.vercel.app/Assets/HuriWebIcon.png">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <title>Huri — Convertisseur de fichiers local pour macOS</title>
     <link rel="icon" href="/Assets/HuriWebIcon.png">
     <script>document.documentElement.classList.add("js")</script>
@@ -139,7 +139,7 @@
                   <button type="button" class="format-choice" data-format="HEIC">HEIC</button>
                 </div>
                 <div class="demo-footer">
-                  <span data-demo-status><i></i> Prêt à convertir</span>
+                  <span role="status" aria-live="polite" data-demo-status><i></i> Prêt à convertir</span>
                   <button type="button" class="demo-convert" data-demo-convert>Convertir maintenant</button>
                 </div>
               </div>
@@ -242,7 +242,7 @@
               <div class="format-count"><strong data-visible-count>305</strong><span>formats catalogués</span></div>
             </div>
             <div class="family-tabs" role="tablist" aria-label="Familles de formats" data-family-tabs></div>
-            <div class="format-results" aria-live="polite" data-format-results></div>
+            <div class="format-results" id="format-results" role="tabpanel" aria-live="polite" tabindex="0" data-format-results></div>
           </div>
         </div>
       </section>

@@ -1,14 +1,15 @@
 const families = [
-  { id: "all", label: "Tous", count: 305, formats: [] },
-  { id: "images", label: "Images", count: 108, formats: ["PNG", "JPG", "WEBP", "AVIF", "HEIC", "TIFF", "GIF", "BMP", "RAW", "PSD", "ICO", "EXR"] },
-  { id: "audio", label: "Audio", count: 62, formats: ["MP3", "M4A", "WAV", "AIFF", "FLAC", "OGG", "OPUS", "AAC", "WMA", "AMR"] },
-  { id: "video", label: "Vidéo", count: 37, formats: ["MP4", "MOV", "M4V", "WEBM", "MKV", "AVI", "MPEG", "FLV", "WMV", "3GP"] },
-  { id: "documents", label: "Documents", count: 23, formats: ["PDF", "DOCX", "DOC", "ODT", "RTF", "TXT", "HTML", "CSV", "XLSX", "PPTX"] },
-  { id: "archives", label: "Archives", count: 23, formats: ["ZIP", "7Z", "TAR", "RAR", "TGZ", "TBZ2", "TXZ", "JAR", "CAB", "ARJ"] },
-  { id: "vectors", label: "Vecteurs", count: 20, formats: ["SVG", "EPS", "AI", "CDR", "DXF", "EMF", "WMF", "SK", "PLT", "CGM"] },
-  { id: "fonts", label: "Polices", count: 16, formats: ["TTF", "OTF", "WOFF", "WOFF2", "EOT", "DFONT", "PFA", "PFB"] },
-  { id: "presentations", label: "Présentations", count: 10, formats: ["PPTX", "PPT", "ODP", "PPSX", "POTX", "KEY"] },
-  { id: "ebooks", label: "E-books", count: 9, formats: ["EPUB", "MOBI", "AZW3", "FB2", "LRF", "PDB", "RB", "TCR"] }
+  { id: "all", label: "Tous", formats: [] },
+  { id: "images", label: "Images", formats: ["3FR", "ARW", "AVIF", "BMP", "CR2", "CRW", "CUR", "DCM", "DCR", "DDS", "DNG", "ERF", "EXR", "FAX", "FTS", "G3", "G4", "GIF", "GV", "HDR", "HEIC", "HEIF", "HRZ", "ICO", "IIQ", "IPL", "JBG", "JBIG", "JFI", "JFIF", "JIF", "JNX", "JP2", "JPE", "JPEG", "JPG", "JPS", "K25", "KDC", "MAC", "MAP", "MEF", "MNG", "MRW", "MTV", "NEF", "NRW", "ORF", "OTB", "PAL", "PALM", "PAM", "PBM", "PCD", "PCT", "PCX", "PDB", "PEF", "PES", "PFM", "PGM", "PGX", "PICON", "PICT", "PIX", "PLASMA", "PNG", "PNM", "PPM", "PSD", "PWP", "RAF", "RAS", "RGB", "RGBA", "RGBO", "RGF", "RLA", "RLE", "RW2", "SCT", "SFW", "SGI", "SIX", "SIXEL", "SR2", "SRF", "SUN", "SVG", "TGA", "TIFF", "TIM", "TM2", "UYVY", "VIFF", "VIPS", "WBMP", "WEBP", "WMZ", "WPG", "X3F", "XBM", "XC", "XCF", "XPM", "XV", "XWD", "YUV"] },
+  { id: "audios", label: "Audio", formats: ["8SVX", "AAC", "AC3", "AIFF", "AMB", "AMR", "APE", "AU", "AVR", "CAF", "CDDA", "CVS", "CVSD", "CVU", "DSS", "DTS", "DVMS", "FAP", "FLAC", "FSSD", "GSM", "GSRT", "HCOM", "HTK", "IMA", "IRCAM", "M4A", "M4R", "MAUD", "MP2", "MP3", "NIST", "OGA", "OGG", "OPUS", "PAF", "PRC", "PVF", "RA", "SD2", "SHN", "SLN", "SMP", "SND", "SNDR", "SNDT", "SOU", "SPH", "SPX", "TAK", "TTA", "TXW", "VMS", "VOC", "VOX", "VQF", "W64", "WAV", "WMA", "WV", "WVE", "XA"] },
+  { id: "videos", label: "Vidéo", formats: ["3G2", "3GP", "AAF", "ASF", "AV1", "AVCHD", "AVI", "CAVS", "DIVX", "DV", "F4V", "FLV", "HEVC", "M2TS", "M2V", "M4V", "MJPEG", "MKV", "MOD", "MOV", "MP4", "MPEG", "MPEG2", "MPG", "MTS", "MXF", "OGV", "RM", "RMVB", "SWF", "TOD", "TS", "VOB", "WEBM", "WMV", "WTV", "XVID"] },
+  { id: "documents", label: "Documents", formats: ["ABW", "AW", "CSV", "DBK", "DJVU", "DOC", "DOCM", "DOCX", "DOT", "DOTM", "DOTX", "HTML", "KWD", "ODT", "OXPS", "PDF", "RTF", "SXW", "TXT", "WPS", "XLS", "XLSX", "XPS"] },
+  { id: "archives", label: "Archives", formats: ["7Z", "ACE", "ALZ", "ARC", "ARJ", "CAB", "CPIO", "DEB", "JAR", "LHA", "RAR", "RPM", "TAR", "TAR.7Z", "TAR.BZ", "TAR.LZ", "TAR.LZMA", "TAR.LZO", "TAR.XZ", "TAR.Z", "TBZ2", "TGZ", "ZIP"] },
+  { id: "vectors", label: "Vecteurs", formats: ["AFF", "AI", "CCX", "CDR", "CDT", "CGM", "CMX", "DST", "EMF", "EPS", "EXP", "FIG", "PCS", "PES", "PLT", "PS", "SK", "SK1", "SVG", "WMF"] },
+  { id: "fonts", label: "Polices", formats: ["AFM", "BIN", "CFF", "CID", "DFONT", "OTF", "PFA", "PFB", "PS", "PT3", "SFD", "T11", "T42", "TTF", "UFO", "WOFF"] },
+  { id: "presentations", label: "Présentations", formats: ["ODP", "POT", "POTM", "POTX", "PPS", "PPSM", "PPSX", "PPT", "PPTM", "PPTX"] },
+  { id: "ebooks", label: "E-books", formats: ["AZW3", "EPUB", "FB2", "LRF", "MOBI", "PDB", "RB", "SNB", "TCR"] },
+  { id: "cad", label: "CAO", formats: ["DXF"] }
 ];
 
 const familyLabels = Object.fromEntries(families.map((family) => [family.id, family.label]));
@@ -25,8 +26,8 @@ let activeFamily = "all";
 
 function renderTabs() {
   tabs.innerHTML = families.map((family) => `
-    <button class="family-tab" type="button" role="tab" aria-selected="${family.id === activeFamily}" data-family="${family.id}">
-      ${family.label} <span>${family.count}</span>
+    <button class="family-tab" id="format-tab-${family.id}" type="button" role="tab" aria-controls="format-results" aria-selected="${family.id === activeFamily}" tabindex="${family.id === activeFamily ? "0" : "-1"}" data-family="${family.id}">
+      ${family.label} <span>${family.id === "all" ? allFormats.length : family.formats.length}</span>
     </button>`).join("");
 }
 
@@ -36,19 +37,42 @@ function renderFormats() {
     ? allFormats
     : allFormats.filter((item) => item.family === activeFamily);
   const filtered = source.filter((item) => item.format.includes(query) || familyLabels[item.family].toLocaleUpperCase("fr").includes(query));
-  const total = activeFamily === "all" && !query ? 305 : filtered.length;
+  const total = filtered.length;
   visibleCount.textContent = total;
+  results.setAttribute("aria-labelledby", `format-tab-${activeFamily}`);
   results.innerHTML = filtered.length
     ? filtered.slice(0, 25).map((item) => `<article class="format-item"><strong>${item.format}</strong><span>${familyLabels[item.family]}</span></article>`).join("")
     : `<p class="format-empty">Aucun format ne correspond à cette recherche.</p>`;
 }
 
+function activateFamily(family, moveFocus = false) {
+  activeFamily = family;
+  renderTabs();
+  renderFormats();
+  if (moveFocus) {
+    document.querySelector(`[data-family="${family}"]`).focus();
+  }
+}
+
 tabs.addEventListener("click", (event) => {
   const button = event.target.closest("[data-family]");
   if (!button) return;
-  activeFamily = button.dataset.family;
-  renderTabs();
-  renderFormats();
+  activateFamily(button.dataset.family, true);
+});
+tabs.addEventListener("keydown", (event) => {
+  const buttons = [...tabs.querySelectorAll("[data-family]")];
+  const currentIndex = buttons.indexOf(event.target.closest("[data-family]"));
+  if (currentIndex < 0) return;
+
+  let nextIndex;
+  if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % buttons.length;
+  if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+  if (event.key === "Home") nextIndex = 0;
+  if (event.key === "End") nextIndex = buttons.length - 1;
+  if (nextIndex === undefined) return;
+
+  event.preventDefault();
+  activateFamily(buttons[nextIndex].dataset.family, true);
 });
 search.addEventListener("input", renderFormats);
 renderTabs();
