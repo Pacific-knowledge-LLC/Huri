@@ -33,6 +33,8 @@ enum HuriDestination: String, Hashable, CaseIterable, Identifiable {
 struct HuriRootView: View {
   @AppStorage(HuriOnboarding.completedVersionKey)
   private var completedOnboardingVersion = 0
+  @AppStorage(HuriLanguage.storageKey)
+  private var languageCode = HuriLanguage.current().rawValue
 
   @State private var destination: HuriDestination? = .convert
   @State private var showsOnboarding = false
@@ -63,7 +65,9 @@ struct HuriRootView: View {
           HuriTheme.canvasGradient
         }
     }
+    .id(languageCode)
     .tint(HuriTheme.lagoon)
+    .environment(\.locale, selectedLanguage.locale)
     .onAppear(perform: evaluateOnboarding)
     .sheet(isPresented: $showsOnboarding, onDismiss: onboardingWasDismissed) {
       OnboardingView(
@@ -104,6 +108,20 @@ struct HuriRootView: View {
           .font(.caption2)
           .foregroundStyle(.tertiary)
       }
+
+      Section(HuriL10n.text("language.section")) {
+        Picker(
+          HuriL10n.text("language.picker"),
+          selection: $languageCode
+        ) {
+          ForEach(HuriLanguage.allCases) { language in
+            Text(language.nativeName).tag(language.rawValue)
+          }
+        }
+        .pickerStyle(.segmented)
+        .labelsHidden()
+        .accessibilityLabel(HuriL10n.text("language.picker"))
+      }
     }
     .navigationTitle(HuriCore.applicationName)
     .overlay(alignment: .topLeading) {
@@ -127,6 +145,10 @@ struct HuriRootView: View {
       .padding(12)
     }
     .huriTourTarget(.sidebar)
+  }
+
+  private var selectedLanguage: HuriLanguage {
+    HuriLanguage(rawValue: languageCode) ?? HuriLanguage.current()
   }
 
   @ViewBuilder

@@ -178,6 +178,8 @@
 "formats.title" = "305 formats, one private workspace";
 "import.alert.title" = "Some Files Were Not Imported";
 "import.failure.header" = "Some files could not be added:\n";
+"language.picker" = "Application language";
+"language.section" = "Language";
 "nav.about" = "About";
 "nav.convert" = "Convert";
 "nav.formats" = "Formats";

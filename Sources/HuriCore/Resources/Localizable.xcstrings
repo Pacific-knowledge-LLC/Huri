@@ -295,6 +295,18 @@
         "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lancer la conversion" } }
       }
     },
+    "language.picker" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Application language" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Langue de l’application" } }
+      }
+    },
+    "language.section" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Language" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Langue" } }
+      }
+    },
     "common.add" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Add" } },

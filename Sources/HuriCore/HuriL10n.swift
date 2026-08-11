@@ -28,29 +28,31 @@ public enum HuriL10n {
   }()
 
   public static func text(_ key: String, locale: Locale? = nil) -> String {
-    if let locale {
-      let requestedLocalization =
-        locale.identifier
-        .split(whereSeparator: { $0 == "_" || $0 == "-" })
-        .first
-        .map(String.init)
-        ?? locale.identifier
-      let localization =
-        ["fr", "en"].contains(requestedLocalization)
-        ? requestedLocalization
-        : "fr"
-      if let path = resourceBundle.path(
-        forResource: "Localizable",
-        ofType: "strings",
-        inDirectory: nil,
-        forLocalization: localization
-      ),
-        let values = NSDictionary(contentsOfFile: path) as? [String: String],
-        let translated = values[key]
-      {
-        return translated
-      }
+    let requestedLocale = locale ?? HuriLanguage.current().locale
+    let requestedLocalization =
+      requestedLocale.identifier
+      .split(whereSeparator: { $0 == "_" || $0 == "-" })
+      .first
+      .map(String.init)
+      ?? requestedLocale.identifier
+    let localization =
+      [HuriLanguage.french.rawValue, HuriLanguage.english.rawValue]
+        .contains(requestedLocalization)
+      ? requestedLocalization
+      : HuriLanguage.french.rawValue
+
+    if let path = resourceBundle.path(
+      forResource: "Localizable",
+      ofType: "strings",
+      inDirectory: nil,
+      forLocalization: localization
+    ),
+      let values = NSDictionary(contentsOfFile: path) as? [String: String],
+      let translated = values[key]
+    {
+      return translated
     }
+
     let value = String.LocalizationValue(key)
     return String(localized: value, table: "Localizable", bundle: resourceBundle)
   }
@@ -62,7 +64,7 @@ public enum HuriL10n {
   ) -> String {
     String(
       format: text(key, locale: locale),
-      locale: locale ?? .current,
+      locale: locale ?? HuriLanguage.current().locale,
       arguments: arguments
     )
   }

@@ -5,6 +5,8 @@ import SwiftUI
 @main
 struct HuriApplication: App {
   init() {
+    HuriLanguage.installInitialPreference()
+
     guard ProcessInfo.processInfo.arguments.contains("--verify-packaged-resources") else {
       return
     }
@@ -49,6 +51,8 @@ struct HuriApplication: App {
 private struct HuriCommands: Commands {
   @FocusedValue(\.openFilesAction) private var openFiles
   @FocusedValue(\.startConversionAction) private var startConversion
+  @AppStorage(HuriLanguage.storageKey)
+  private var languageCode = HuriLanguage.current().rawValue
 
   var body: some Commands {
     CommandGroup(after: .newItem) {
@@ -65,6 +69,17 @@ private struct HuriCommands: Commands {
       }
       .keyboardShortcut(.return, modifiers: [.command])
       .disabled(startConversion == nil)
+    }
+
+    CommandMenu(HuriL10n.text("language.section")) {
+      Picker(
+        HuriL10n.text("language.picker"),
+        selection: $languageCode
+      ) {
+        ForEach(HuriLanguage.allCases) { language in
+          Text(language.nativeName).tag(language.rawValue)
+        }
+      }
     }
 
     CommandGroup(replacing: .help) {

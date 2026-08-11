@@ -7,6 +7,49 @@ final class HuriCoreTests: XCTestCase {
     XCTAssertEqual(HuriCore.applicationName, "Huri")
   }
 
+  func testLanguageDetectionUsesThePrimaryMacOSLanguage() {
+    XCTAssertEqual(
+      HuriLanguage.detect(preferredLanguages: ["fr-FR", "en-US"]),
+      .french
+    )
+    XCTAssertEqual(
+      HuriLanguage.detect(preferredLanguages: ["en-US", "fr-FR"]),
+      .english
+    )
+    XCTAssertEqual(
+      HuriLanguage.detect(preferredLanguages: ["de-DE"]),
+      .english
+    )
+  }
+
+  func testLanguagePreferenceIsInstalledOnceAndPersisted() throws {
+    let suiteName = "HuriCoreTests.language.\(UUID().uuidString)"
+    let defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
+    defer { defaults.removePersistentDomain(forName: suiteName) }
+
+    XCTAssertEqual(
+      HuriLanguage.installInitialPreference(
+        in: defaults,
+        preferredLanguages: ["fr-FR"]
+      ),
+      .french
+    )
+    XCTAssertEqual(
+      defaults.string(forKey: HuriLanguage.storageKey),
+      HuriLanguage.french.rawValue
+    )
+
+    defaults.set(HuriLanguage.english.rawValue, forKey: HuriLanguage.storageKey)
+
+    XCTAssertEqual(
+      HuriLanguage.installInitialPreference(
+        in: defaults,
+        preferredLanguages: ["fr-FR"]
+      ),
+      .english
+    )
+  }
+
   func testImageConversionsStayCoherent() {
     let outputs = CapabilityRegistry().outputs(for: .png)
     XCTAssertTrue(outputs.contains(.jpeg))

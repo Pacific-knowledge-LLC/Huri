@@ -178,6 +178,8 @@
 "formats.title" = "305 formats, un seul espace privé";
 "import.alert.title" = "Import incomplet";
 "import.failure.header" = "Certains fichiers n’ont pas pu être ajoutés :\n";
+"language.picker" = "Langue de l’application";
+"language.section" = "Langue";
 "nav.about" = "À propos";
 "nav.convert" = "Convertir";
 "nav.formats" = "Formats";
